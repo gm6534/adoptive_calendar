@@ -37,11 +37,18 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurpleAccent,
+        title: const Text(
+          "Adoptive Calendar Example",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          Flexible(
             child: Center(
                 child: ElevatedButton(
               onPressed: () async {
@@ -50,7 +57,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
-                      // use24hFormat: true,
                       // backgroundColor: Colors.green,
                       // fontColor: Colors.white,
                       // selectedColor: Colors.yellow,
@@ -67,7 +73,8 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
             )),
           ),
           const SizedBox(height: 20),
-          Text(pickedDate.toString()),
+          Center(child: Text(pickedDate.toString())),
+          const SizedBox(height: 40),
         ],
       ),
     );

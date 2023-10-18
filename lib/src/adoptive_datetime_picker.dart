@@ -15,20 +15,21 @@ class AdoptiveCalendar extends StatefulWidget {
   final Color? iconColor;
   final int? minYear;
   final int? maxYear;
-  final bool? use24hFormat;
-  const AdoptiveCalendar(
-      {super.key,
-      required this.initialDate,
-      this.backgroundColor,
-      this.minYear,
-      this.maxYear,
-      this.fontColor,
-      this.selectedColor,
-      this.headingColor,
-      this.iconColor,
-      this.barColor,
-      this.barForegroundColor,
-      this.use24hFormat = false});
+  // final bool? use24hFormat;
+  const AdoptiveCalendar({
+    super.key,
+    required this.initialDate,
+    this.backgroundColor,
+    this.minYear,
+    this.maxYear,
+    this.fontColor,
+    this.selectedColor,
+    this.headingColor,
+    this.iconColor,
+    this.barColor,
+    this.barForegroundColor,
+    // this.use24hFormat = false
+  });
 
   @override
   State<AdoptiveCalendar> createState() => _AdoptiveCalendarState();
@@ -317,8 +318,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               // child: Text("${_selectedDate.hour}:${_selectedDate.minute}",
               child: FittedBox(
                 child: Text(
-                  _selectedDate!
-                      .format12Hour(use24HoursFormat: widget.use24hFormat),
+                  _selectedDate!.format12Hour(),
                   style: TextStyle(
                       color: widget.barColor != null ? widget.fontColor : null,
                       fontWeight: FontWeight.w600,
@@ -330,7 +330,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
           ),
         ),
       ),
-      if(!widget.use24hFormat!)
+      // if (!widget.use24hFormat!)
       ...[
         if (isPortrait) SizedBox(width: screenWidth * 0.02),
         if (!isPortrait) Container(height: screenHeight * 0.1),
@@ -532,9 +532,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
 }
 
 extension DateTimeExtension on DateTime {
-  String format12Hour({bool? use24HoursFormat = false}) {
+  String format12Hour() {
     // Convert hour to 12-hour format
-    int hour12 = use24HoursFormat! ? hour : (hour % 12 == 0 ? 12 : hour % 12);
+    int hour12 = (hour % 12 == 0 ? 12 : hour % 12);
+    // int hour12 = use24HoursFormat! ? hour : (hour % 12 == 0 ? 12 : hour % 12);
 
     // Add leading zero for single-digit hours
     String hourString = hour12 < 10 ? '0$hour12' : '$hour12';
