@@ -9,6 +9,11 @@ This ios 14 calendar view we will update this shortly.
 
 A Flutter package that provides an iOS 14 Style Cupertino look in Calendar with customizable options.
 
+| ![Adoptive Calendar](https://github.com/gm6534/adoptive_calendar/blob/developer/example/Demo/Calendar.gif) | ![Date Picker View](https://github.com/gm6534/adoptive_calendar/blob/developer/example/Demo/date_pick.jpg) | ![Time Picker View](https://github.com/gm6534/adoptive_calendar/blob/developer/example/Demo/time_pick.jpg) | ![Month Year Picker View](https://github.com/gm6534/adoptive_calendar/blob/developer/example/Demo/year_pick.jpg) |
+| :--------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: |
+|                                                       **Adoptive Calendar**                                                        |                                                       **Date Picker View**                                                        |                                                       **Time Picker View**                                                        |                                                    **Month Year Picker View**                                                    |
+
+
 ## Getting Started
 
 To use this package, add `adoptive_calendar` as a dependency in your `pubspec.yaml` file.
