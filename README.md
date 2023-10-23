@@ -3,9 +3,13 @@ This ios 14 calendar view we will update this shortly.
 -->
 
 ## Adoptive Calendar
-[![pub package](https://img.shields.io/badge/pub-v0.0.3-orange)](https://pub.dev/packages/adoptive_calendar)
+[![pub package](https://img.shields.io/badge/pub-v0.0.2-orange)](https://pub.dev/packages/adoptive_calendar)
 [![pub package](https://img.shields.io/github/license/gm6534/adoptive_calendar)](https://github.com/gm6534/adoptive_calendar/blob/master/LICENSE)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue)](https://github.com/gm6534/adoptive_calendar)
+
+<a href="https://www.buymeacoffee.com/gm6534">
+    <img src="https://shields.io/badge/ghulammustafa-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/gm6534" />
+</a>
 
 A Flutter package that provides an iOS 14 Style Cupertino look in Calendar with customizable options.
 
@@ -70,7 +74,7 @@ AdoptiveCalendar(
 We extend our heartfelt appreciation to the amazing individuals who have contributed to the development and improvement of the Adoptive Calendar Flutter package. Your valuable insights, code contributions, and dedication to enhancing this project are truly commendable. Open-source projects thrive on the generosity and expertise of contributors like you. Whether you've reported issues, suggested improvements, or submitted pull requests, your efforts have made a significant impact. Thank you for being a part of this collaborative journey. Your contributions are instrumental in making the Adoptive Calendar package a robust and user-friendly tool for the Flutter community. We look forward to continued collaboration and welcome new contributors to join us on this exciting venture!
 
 
-## Support Us
+## Assist Us
 
 If you find the Adoptive Calendar Flutter package helpful and would like to support its development and maintenance, there are several ways you can contribute:
 
@@ -89,6 +93,14 @@ If you find the Adoptive Calendar Flutter package helpful and would like to supp
 We are grateful for your support, whether big or small. Together, we can make the Adoptive Calendar package even more robust and beneficial for the Flutter community. Thank you for being a part of our journey!
 
 
+## Support
 
+If you would like to support my work, why don't you buy me a coffee?
 
+<a href="https://www.buymeacoffee.com/gm6534">
+    <img src="https://shields.io/badge/ghulammustafa-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/gm6534" />
+</a>
 
+## License
+
+MIT License, see the [LICENSE.md](https://raw.githubusercontent.com/gm6534/adoptive_calendar/master/LICENSE) file for details.
