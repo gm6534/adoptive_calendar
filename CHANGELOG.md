@@ -6,5 +6,8 @@
 
 * Time Picker Changed to Cupertino
 * Theme Added
-* Demo Added
 * Bugs Fixed
+
+## 0.0.3
+
+* Demo Added

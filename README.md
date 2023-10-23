@@ -3,7 +3,7 @@ This ios 14 calendar view we will update this shortly.
 -->
 
 ## Adoptive Calendar
-[![pub package](https://img.shields.io/badge/pub-v0.0.2-orange)](https://pub.dev/packages/adoptive_calendar)
+[![pub package](https://img.shields.io/badge/pub-v0.0.3-orange)](https://pub.dev/packages/adoptive_calendar)
 [![pub package](https://img.shields.io/github/license/gm6534/adoptive_calendar)](https://github.com/gm6534/adoptive_calendar/blob/master/LICENSE)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue)](https://github.com/gm6534/adoptive_calendar)
 
@@ -20,7 +20,7 @@ To use this package, add `adoptive_calendar` as a dependency in your `pubspec.ya
 
 ```yaml
 dependencies:
-  adoptive_calendar: ^0.0.2
+  adoptive_calendar: ^0.0.3
 ```
 
 ## Features
