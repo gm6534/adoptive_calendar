@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:adoptive_calendar/src/timePicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'constants.dart';
-import 'durationPicker.dart';
+import 'monthYearPicker.dart';
 
 class AdoptiveCalendar extends StatefulWidget {
   final DateTime initialDate;
@@ -41,8 +41,6 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
   bool? isYearSelected;
   bool? isTimeSelected;
   bool? isAM;
-  int? selectedHours;
-  int? selectedMinutes;
   List<String> monthNames = Constants.repeatMonthNames;
 
   @override
@@ -51,9 +49,6 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     isYearSelected = false;
     isTimeSelected = false;
     isAM = _selectedDate!.hour < 12;
-    selectedHours =
-        _selectedDate!.hour % 12 == 0 ? 12 : _selectedDate!.hour % 12;
-    selectedMinutes = _selectedDate!.minute;
 
     super.initState();
   }
@@ -81,17 +76,17 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     Widget calendarBody = isYearSelected!
         ? SizedBox(
             height: screenHeight * (isPortrait ? 0.29 : 0.55),
-            child: CupertinoDatePicker(
-              initialDateTime: _selectedDate,
-              minimumYear: widget.minYear ?? DateTime.now().year,
-              maximumYear: widget.maxYear ?? 2100,
-              mode: CupertinoDatePickerMode.monthYear,
-              // maximumDate: ,
-              onDateTimeChanged: (DateTime value) {
-                _selectedDate = DateTime(value.year, value.month, value.day,
-                    selectedHours!, selectedMinutes!);
-                _selectedDate = timePickerMode(
-                    _selectedDate!, selectedHours!, selectedMinutes!, isAM!);
+            child: DatePicker(
+              minYear: widget.minYear,
+              maxYear: widget.maxYear,
+              initialDateTime: _selectedDate!,
+              onMonthYearChanged: (value) {
+                _selectedDate = DateTime(
+                    value.year,
+                    value.month,
+                    _selectedDate!.day,
+                    _selectedDate!.hour,
+                    _selectedDate!.minute);
                 returnDate = _selectedDate;
                 setState(() {});
               },
@@ -100,27 +95,19 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         : isTimeSelected!
             ? SizedBox(
                 height: screenHeight * (isPortrait ? 0.29 : 0.55),
-                child: DurationPicker(
-                  barColor: widget.barColor,
-                  fontColor: widget.fontColor,
-                  isCalenderUse: true,
-                  isInfiniteLoop: true,
-                  isBorder: false,
-                  hours: selectedHours,
-                  minutes: selectedMinutes,
-                  onChangedHours: (int value) {
-                    selectedHours = value;
-                    _selectedDate = timePickerMode(_selectedDate!,
-                        selectedHours!, selectedMinutes!, isAM!);
+                child: TimePicker(
+                  initialDateTime: _selectedDate!,
+                  onDateTimeChanged: (value) {
+                    _selectedDate = DateTime(
+                        _selectedDate!.year,
+                        _selectedDate!.month,
+                        _selectedDate!.day,
+                        value.hour,
+                        value.minute);
+                    isAM = _selectedDate!.hour < 12;
                     returnDate = _selectedDate;
                     setState(() {});
-                  },
-                  onChangedMinutes: (int value) {
-                    selectedMinutes = value;
-                    _selectedDate = timePickerMode(_selectedDate!,
-                        selectedHours!, selectedMinutes!, isAM!);
-                    returnDate = _selectedDate;
-                    setState(() {});
+                    print("value===-------===$value");
                   },
                 ),
               )
@@ -173,10 +160,12 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                             _selectedDate!.month + 1, 0)
                                         .day) {
                               setState(() {
-                                _selectedDate = DateTime(_selectedDate!.year,
-                                    _selectedDate!.month, day);
-                                _selectedDate = timePickerMode(_selectedDate!,
-                                    selectedHours!, selectedMinutes!, isAM!);
+                                _selectedDate = DateTime(
+                                    _selectedDate!.year,
+                                    _selectedDate!.month,
+                                    day,
+                                    _selectedDate!.hour,
+                                    _selectedDate!.minute);
                                 returnDate = _selectedDate;
                               });
                             }
@@ -348,13 +337,23 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        isAM = !isAM!;
-                        _selectedDate = timePickerMode(_selectedDate!,
-                            selectedHours!, selectedMinutes!, isAM!);
-                        returnDate = _selectedDate;
-                        setState(() {});
-                      },
+                      onTap: isTimeSelected!
+                          ? null
+                          : () {
+                              isAM = !isAM!;
+                              _selectedDate = DateTime(
+                                  _selectedDate!.year,
+                                  _selectedDate!.month,
+                                  _selectedDate!.day,
+                                  isAM!
+                                      ? _selectedDate!.hour % 12 == 0
+                                          ? 12
+                                          : _selectedDate!.hour % 12
+                                      : _selectedDate!.hour + 12,
+                                  _selectedDate!.minute);
+                              returnDate = _selectedDate;
+                              setState(() {});
+                            },
                       child: Container(
                         // height: 40,
                         // width: screenWidth * 0.14,
@@ -384,13 +383,23 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                   SizedBox(width: screenWidth * 0.01),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        isAM = !isAM!;
-                        _selectedDate = timePickerMode(_selectedDate!,
-                            selectedHours!, selectedMinutes!, isAM!);
-                        returnDate = _selectedDate;
-                        setState(() {});
-                      },
+                      onTap: isTimeSelected!
+                          ? null
+                          : () {
+                              isAM = !isAM!;
+                              _selectedDate = DateTime(
+                                  _selectedDate!.year,
+                                  _selectedDate!.month,
+                                  _selectedDate!.day,
+                                  isAM!
+                                      ? _selectedDate!.hour % 12 == 0
+                                          ? 12
+                                          : _selectedDate!.hour % 12
+                                      : _selectedDate!.hour + 12,
+                                  _selectedDate!.minute);
+                              returnDate = _selectedDate;
+                              setState(() {});
+                            },
                       child: Container(
                         // height: 40,
                         // width: screenWidth * 0.14,
@@ -506,28 +515,6 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
 
   bool _isSelectedDay(int day) {
     return _selectedDate!.day == day;
-  }
-
-  DateTime timePickerMode(DateTime selectedDate, int selectedHours,
-      int selectedMinutes, bool isAM) {
-    var formattedHours = selectedHours;
-    if (isAM) {
-      if (selectedHours == 12) {
-        formattedHours = selectedHours + 12;
-      }
-    } else {
-      if (selectedHours != 12) {
-        formattedHours = selectedHours + 12;
-      }
-    }
-    selectedDate = DateTime(
-        selectedDate.year,
-        selectedDate.month,
-        selectedDate.day,
-        // 24,
-        formattedHours,
-        selectedMinutes);
-    return selectedDate;
   }
 }
 
