@@ -1,6 +1,7 @@
-## 0.0.1
+## 0.0.3
 
-* TODO: Describe initial release.
+* Demo Added
+
 
 ## 0.0.2
 
@@ -8,6 +9,8 @@
 * Theme Added
 * Bugs Fixed
 
-## 0.0.3
 
-* Demo Added
+## 0.0.1
+
+* TODO: Describe initial release.
+
