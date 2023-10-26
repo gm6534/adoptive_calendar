@@ -7,6 +7,7 @@ This ios 14 calendar view we will update this shortly.
 )](https://pub.dev/packages/adoptive_calendar)
 [![pub package](https://img.shields.io/github/license/gm6534/adoptive_calendar)](https://github.com/gm6534/adoptive_calendar/blob/master/LICENSE)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue)](https://github.com/gm6534/adoptive_calendar)
+![Static Badge](https://img.shields.io/badge/Flutter-Favourite-blue?logo=flutter)
 
 <a href="https://www.buymeacoffee.com/gm6534">
     <img src="https://shields.io/badge/ghulammustafa-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/gm6534" />
