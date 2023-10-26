@@ -3,7 +3,8 @@ This ios 14 calendar view we will update this shortly.
 -->
 
 ## Adoptive Calendar
-[![pub package](https://img.shields.io/badge/pub-v0.0.2-orange)](https://pub.dev/packages/adoptive_calendar)
+[![pub package](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgm6534%2Fadoptive_calendar%2Fmaster%2Fpubspec.yaml&query=%24.version&label=pub&color=orange
+)](https://pub.dev/packages/adoptive_calendar)
 [![pub package](https://img.shields.io/github/license/gm6534/adoptive_calendar)](https://github.com/gm6534/adoptive_calendar/blob/master/LICENSE)
 [![pub package](https://img.shields.io/badge/platform-flutter-blue)](https://github.com/gm6534/adoptive_calendar)
 
