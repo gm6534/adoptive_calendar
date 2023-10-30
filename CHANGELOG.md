@@ -1,3 +1,8 @@
+## 0.0.4
+
+* Minutes Interval Added
+* Bugs Fixed
+
 ## 0.0.3
 
 * Demo Added

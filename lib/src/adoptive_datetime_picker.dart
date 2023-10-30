@@ -15,6 +15,7 @@ class AdoptiveCalendar extends StatefulWidget {
   final Color? iconColor;
   final int? minYear;
   final int? maxYear;
+  final int? minuteInterval;
   // final bool? use24hFormat;
   const AdoptiveCalendar({
     super.key,
@@ -28,6 +29,7 @@ class AdoptiveCalendar extends StatefulWidget {
     this.iconColor,
     this.barColor,
     this.barForegroundColor,
+    this.minuteInterval,
     // this.use24hFormat = false
   });
 
@@ -97,6 +99,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 height: screenHeight * (isPortrait ? 0.29 : 0.55),
                 child: TimePicker(
                   initialDateTime: _selectedDate!,
+                  minuteInterval: widget.minuteInterval,
                   onDateTimeChanged: (value) {
                     _selectedDate = DateTime(
                         _selectedDate!.year,

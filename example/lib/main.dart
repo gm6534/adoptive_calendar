@@ -57,6 +57,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
+                      // minuteInterval: 1,
                       // backgroundColor: Colors.green,
                       // fontColor: Colors.white,
                       // selectedColor: Colors.yellow,

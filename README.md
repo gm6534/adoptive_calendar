@@ -26,7 +26,7 @@ To use this package, add `adoptive_calendar` as a dependency in your `pubspec.ya
 
 ```yaml
 dependencies:
-  adoptive_calendar: ^0.0.3
+  adoptive_calendar: $latestVersion
 ```
 
 ## Features
@@ -50,6 +50,7 @@ To seamlessly integrate the `Adoptive Calendar` into your Flutter application, b
 ```dart
 AdoptiveCalendar(
         initialDate: DateTime.now(),
+          // minuteInterval: 1,
           // use24hFormat: true,
           // backgroundColor: Colors.green,
           // fontColor: Colors.white,
