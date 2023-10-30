@@ -1,5 +1,4 @@
 import 'package:adoptive_calendar/adoptive_calendar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
