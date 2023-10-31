@@ -31,17 +31,21 @@ dependencies:
 
 ## Features
 
-- initialDate: Set the initial date for the calendar.
-- backgroundColor: Customize the background color of the calendar.
-- fontColor: Define the font color for the calendar.
-- selectedColor: Set the color for the selected date.
-- headingColor: Customize the color of the calendar headings.
-- barColor: Set the color of the calendar bar.
-- barForegroundColor: Define the foreground color of the calendar bar.
-- iconColor: Customize the color of the calendar icons.
-- minYear: Set the minimum allowed year in the calendar.
-- maxYear: Set the maximum allowed year in the calendar.
-- use24hFormat: Toggle between 12-hour and 24-hour time format.
+| No. | Properties | Description |
+| :--- | :--- | :--- |
+| 1 | initialDate | Set the initial date for the calendar |
+| 2 | backgroundColor | Customize the background color of the calendar |
+| 3 | fontColor | Define the font color for the calendar |
+| 4 | selectedColor | Set the color for the selected date |
+| 5 | headingColor | Customize the color of the calendar headings |
+| 6 | barColor | Set the color of the calendar bar |
+| 7 | barForegroundColor | Define the foreground color of the calendar bar |
+| 8 | iconColor | Customize the color of the calendar icons |
+| 9 | minYear | Set the minimum allowed year in the calendar |
+| 10 | maxYear | Set the maximum allowed year in the calendar |
+| 11 | use24hFormat | Toggle between 12-hour and 24-hour time format |
+| 12 | minuteInterval | Minutes Interval for minutes to jump on minutes with specific Gap |
+
 
 ## Usage
 
