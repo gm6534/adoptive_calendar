@@ -1,3 +1,8 @@
+## 0.0.5
+
+* 24 Hours Format Added
+* Bugs Fixed
+
 ## 0.0.4
 
 * Minutes Interval Added

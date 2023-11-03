@@ -1,24 +1,53 @@
-import 'package:adoptive_calendar/src/timePicker.dart';
+import 'package:adoptive_calendar/src/time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'constants.dart';
-import 'monthYearPicker.dart';
+import 'month_year_picker.dart';
 
 class AdoptiveCalendar extends StatefulWidget {
+  /// The initial date for the calendar.
   final DateTime initialDate;
+
+  /// The background color of the calendar.
   final Color? backgroundColor;
+
+  /// The font color for text in the calendar.
   final Color? fontColor;
+
+  /// The color for selected dates in the calendar.
   final Color? selectedColor;
+
+  /// The color for the heading (e.g., month and year) in the calendar.
   final Color? headingColor;
+
+  /// The color for the bar at the top of the calendar.
   final Color? barColor;
+
+  /// The foreground color for the bar at the top of the calendar.
   final Color? barForegroundColor;
+
+  /// The color for icons in the calendar.
   final Color? iconColor;
+
+  /// The minimum year available in the calendar.
   final int? minYear;
+
+  /// The maximum year available in the calendar.
   final int? maxYear;
-  final int? minuteInterval;
-  // final bool? use24hFormat;
+
+  /// The minute interval for time selection.
+  final int minuteInterval;
+
+  /// Whether to use 24-hour time format.
+  final bool use24hFormat;
+
+  /// Creates an instance of [AdoptiveCalendar].
+  ///
+  /// The [initialDate] is required and represents the date to be initially
+  /// displayed on the calendar. Other parameters are optional and can be
+  /// customized to control the appearance and behavior of the calendar.
+
   const AdoptiveCalendar({
-    super.key,
     required this.initialDate,
     this.backgroundColor,
     this.minYear,
@@ -29,9 +58,10 @@ class AdoptiveCalendar extends StatefulWidget {
     this.iconColor,
     this.barColor,
     this.barForegroundColor,
-    this.minuteInterval,
-    // this.use24hFormat = false
-  });
+    this.minuteInterval = 1,
+    this.use24hFormat = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AdoptiveCalendar> createState() => _AdoptiveCalendarState();
@@ -47,9 +77,16 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
 
   @override
   void initState() {
+    /// Initialize the [_selectedDate] with the [initialDate] provided in the widget.
     _selectedDate = widget.initialDate;
+
+    /// Set [isYearSelected] to false to indicate that a year has not been selected yet.
     isYearSelected = false;
+
+    /// Set [isTimeSelected] to false to indicate that a time has not been selected yet.
     isTimeSelected = false;
+
+    /// Determine whether it is AM or PM based on the initial hour of the [_selectedDate].
     isAM = _selectedDate!.hour < 12;
 
     super.initState();
@@ -61,6 +98,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     var orientation = MediaQuery.of(context).orientation;
+
+    /// A boolean value that indicates whether the device is in portrait orientation.
     bool isPortrait = (orientation == Orientation.portrait) ? true : false;
 
     if (isPortrait) {
@@ -100,6 +139,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 child: TimePicker(
                   initialDateTime: _selectedDate!,
                   minuteInterval: widget.minuteInterval,
+                  use24hForm: widget.use24hFormat,
                   onDateTimeChanged: (value) {
                     _selectedDate = DateTime(
                         _selectedDate!.year,
@@ -110,7 +150,6 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                     isAM = _selectedDate!.hour < 12;
                     returnDate = _selectedDate;
                     setState(() {});
-                    print("value===-------===$value");
                   },
                 ),
               )
@@ -310,7 +349,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               // child: Text("${_selectedDate.hour}:${_selectedDate.minute}",
               child: FittedBox(
                 child: Text(
-                  _selectedDate!.format12Hour(),
+                  _selectedDate!
+                      .format12Hour(use24HoursFormat: widget.use24hFormat),
                   style: TextStyle(
                       color: widget.barColor != null ? widget.fontColor : null,
                       fontWeight: FontWeight.w600,
@@ -326,114 +366,115 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       ...[
         if (isPortrait) SizedBox(width: screenWidth * 0.02),
         if (!isPortrait) Container(height: screenHeight * 0.1),
-        Container(
-          height: 40,
-          width: screenWidth * (isPortrait ? 0.32 : 0.3),
-          decoration: BoxDecoration(
-              color: widget.barColor ?? Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(5)),
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: isTimeSelected!
-                          ? null
-                          : () {
-                              isAM = !isAM!;
-                              _selectedDate = DateTime(
-                                  _selectedDate!.year,
-                                  _selectedDate!.month,
-                                  _selectedDate!.day,
-                                  isAM!
-                                      ? _selectedDate!.hour % 12 == 0
-                                          ? 12
-                                          : _selectedDate!.hour % 12
-                                      : _selectedDate!.hour + 12,
-                                  _selectedDate!.minute);
-                              returnDate = _selectedDate;
-                              setState(() {});
-                            },
-                      child: Container(
-                        // height: 40,
-                        // width: screenWidth * 0.14,
-                        decoration: BoxDecoration(
-                            color: isAM!
-                                ? widget.barForegroundColor ?? Colors.white
-                                : null,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Text(
-                              "AM",
-                              style: TextStyle(
-                                color: widget.barForegroundColor != null
-                                    ? widget.fontColor
-                                    : null,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
+        if (!widget.use24hFormat)
+          Container(
+            height: 40,
+            width: screenWidth * (isPortrait ? 0.32 : 0.3),
+            decoration: BoxDecoration(
+                color: widget.barColor ?? Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(5)),
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: isTimeSelected!
+                            ? null
+                            : () {
+                                isAM = !isAM!;
+                                _selectedDate = DateTime(
+                                    _selectedDate!.year,
+                                    _selectedDate!.month,
+                                    _selectedDate!.day,
+                                    isAM!
+                                        ? _selectedDate!.hour % 12 == 0
+                                            ? 12
+                                            : _selectedDate!.hour % 12
+                                        : _selectedDate!.hour + 12,
+                                    _selectedDate!.minute);
+                                returnDate = _selectedDate;
+                                setState(() {});
+                              },
+                        child: Container(
+                          // height: 40,
+                          // width: screenWidth * 0.14,
+                          decoration: BoxDecoration(
+                              color: isAM!
+                                  ? widget.barForegroundColor ?? Colors.white
+                                  : null,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Text(
+                                "AM",
+                                style: TextStyle(
+                                  color: widget.barForegroundColor != null
+                                      ? widget.fontColor
+                                      : null,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: screenWidth * 0.01),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: isTimeSelected!
-                          ? null
-                          : () {
-                              isAM = !isAM!;
-                              _selectedDate = DateTime(
-                                  _selectedDate!.year,
-                                  _selectedDate!.month,
-                                  _selectedDate!.day,
-                                  isAM!
-                                      ? _selectedDate!.hour % 12 == 0
-                                          ? 12
-                                          : _selectedDate!.hour % 12
-                                      : _selectedDate!.hour + 12,
-                                  _selectedDate!.minute);
-                              returnDate = _selectedDate;
-                              setState(() {});
-                            },
-                      child: Container(
-                        // height: 40,
-                        // width: screenWidth * 0.14,
-                        decoration: BoxDecoration(
-                            color: !isAM!
-                                ? widget.barForegroundColor ?? Colors.white
-                                : null,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Text(
-                              "PM",
-                              style: TextStyle(
-                                color: widget.barForegroundColor != null
-                                    ? widget.fontColor
-                                    : null,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
+                    SizedBox(width: screenWidth * 0.01),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: isTimeSelected!
+                            ? null
+                            : () {
+                                isAM = !isAM!;
+                                _selectedDate = DateTime(
+                                    _selectedDate!.year,
+                                    _selectedDate!.month,
+                                    _selectedDate!.day,
+                                    isAM!
+                                        ? _selectedDate!.hour % 12 == 0
+                                            ? 12
+                                            : _selectedDate!.hour % 12
+                                        : _selectedDate!.hour + 12,
+                                    _selectedDate!.minute);
+                                returnDate = _selectedDate;
+                                setState(() {});
+                              },
+                        child: Container(
+                          // height: 40,
+                          // width: screenWidth * 0.14,
+                          decoration: BoxDecoration(
+                              color: !isAM!
+                                  ? widget.barForegroundColor ?? Colors.white
+                                  : null,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Text(
+                                "PM",
+                                style: TextStyle(
+                                  color: widget.barForegroundColor != null
+                                      ? widget.fontColor
+                                      : null,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
       ]
     ];
 
@@ -445,7 +486,11 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
           DeviceOrientation.landscapeRight,
           DeviceOrientation.landscapeLeft,
         ]);
+
+        /// Close the current screen and return the [returnDate] to the previous screen.
         Navigator.pop(context, returnDate);
+
+        /// Indicates that the operation was successful and completes with a [Future] value of `true`.
         return Future.value(true);
       },
       child: Dialog(
@@ -517,23 +562,24 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
   }
 
   bool _isSelectedDay(int day) {
+    /// Check if the provided [day] matches the day of the [_selectedDate].
     return _selectedDate!.day == day;
   }
 }
 
 extension DateTimeExtension on DateTime {
-  String format12Hour() {
-    // Convert hour to 12-hour format
-    int hour12 = (hour % 12 == 0 ? 12 : hour % 12);
-    // int hour12 = use24HoursFormat! ? hour : (hour % 12 == 0 ? 12 : hour % 12);
+  String format12Hour({required bool use24HoursFormat}) {
+    /// Convert hour to 12-hour format
+    // int hour12 = (hour % 12 == 0 ? 12 : hour % 12);
+    int hour12 = use24HoursFormat ? hour : (hour % 12 == 0 ? 12 : hour % 12);
 
-    // Add leading zero for single-digit hours
+    /// Add leading zero for single-digit hours
     String hourString = hour12 < 10 ? '0$hour12' : '$hour12';
 
-    // Add leading zero for single-digit minutes
+    /// Add leading zero for single-digit minutes
     String minuteString = minute < 10 ? '0$minute' : '$minute';
 
-    // Return formatted time
+    /// Return formatted time
     return '$hourString:$minuteString';
   }
 }

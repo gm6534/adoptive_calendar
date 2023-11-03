@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Example Adoptive Calendar',
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -56,6 +57,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
+                      // use24hFormat: true,
                       // minuteInterval: 1,
                       // backgroundColor: Colors.green,
                       // fontColor: Colors.white,

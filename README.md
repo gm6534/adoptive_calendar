@@ -54,15 +54,6 @@ To seamlessly integrate the `Adoptive Calendar` into your Flutter application, b
 ```dart
 AdoptiveCalendar(
         initialDate: DateTime.now(),
-          // minuteInterval: 1,
-          // use24hFormat: true,
-          // backgroundColor: Colors.green,
-          // fontColor: Colors.white,
-          // selectedColor: Colors.yellow,
-          // headingColor: Colors.deepPurple,
-          // iconColor: Colors.yellow,
-          // barColor: Colors.purpleAccent,
-          // barForegroundColor: Colors.tealAccent,
           );
 ```
 
