@@ -478,8 +478,12 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       ]
     ];
 
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown,
@@ -491,7 +495,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         Navigator.pop(context, returnDate);
 
         /// Indicates that the operation was successful and completes with a [Future] value of `true`.
-        return Future.value(true);
+        // return Future.value(true);
       },
       child: Dialog(
         backgroundColor: widget.backgroundColor,
