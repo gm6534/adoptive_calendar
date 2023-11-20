@@ -493,9 +493,6 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
 
         /// Close the current screen and return the [returnDate] to the previous screen.
         Navigator.pop(context, returnDate);
-
-        /// Indicates that the operation was successful and completes with a [Future] value of `true`.
-        // return Future.value(true);
       },
       child: Dialog(
         backgroundColor: widget.backgroundColor,

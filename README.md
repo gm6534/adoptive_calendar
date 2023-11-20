@@ -64,7 +64,7 @@ AdoptiveCalendar(
 
 <img src="https://media.licdn.com/dms/image/D4D03AQFw9EJ5ckgB-A/profile-displayphoto-shrink_800_800/0/1681209998357?e=1703116800&v=beta&t=ggiJ8831ElmY-YSEfjL8TxQQIOxMupAzKQaFt_edAng" alt="Muhammad Ahmad" width="50"/>   **[Muhammad Ahmad](https://www.linkedin.com/in/muhammad-ahmad-821963133)**
 
-<img src="https://media.licdn.com/dms/image/D4D03AQGIzavMlhFEeA/profile-displayphoto-shrink_800_800/0/1675192521550?e=1703116800&v=beta&t=iOvom2cOIRPB70BMXT0eV6G54XDWpSjmAqEjNHLhidA" alt="Shahid Nadeem" width="50"/>   **[Shahid Nadeem](https://www.linkedin.com/in/shahid-nadeem-0ab948195)**
+<img src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg" alt="Shahid Nadeem" width="50"/>   **[Shahid Nadeem](https://www.linkedin.com/in/shahid-nadeem-0ab948195)**
 
 <img src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg" alt="Muhammad Farman" width="50"/>   **[Muhammad Farman](https://www.linkedin.com/in/muhammad-farman-969996263/)**
 

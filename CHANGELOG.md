@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Bugs Fixed
+
 ## 0.0.5
 
 * 24 Hours Format Added
