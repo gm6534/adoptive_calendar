@@ -1,4 +1,4 @@
-package com.gmproductions.example
+package com.gmproductions.adoptive_calendar
 
 import io.flutter.embedding.android.FlutterActivity
 
