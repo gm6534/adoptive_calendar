@@ -1,3 +1,8 @@
+## 0.0.7
+
+* Enhance UI
+* Seasonal Effects For Background Added
+
 ## 0.0.6
 
 * Bugs Fixed
