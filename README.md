@@ -49,7 +49,8 @@ dependencies:
 | 10 | maxYear | Set the maximum allowed year in the calendar |
 | 11 | use24hFormat | Toggle between 12-hour and 24-hour time format |
 | 12 | minuteInterval | Minutes Interval for minutes to jump on minutes with specific Gap |
-| 13 | backgroundEffects | Now You Can Set Seasonal Background using `backgroundEffects` Feature|
+| 13 | backgroundEffects | Now You Can Set Seasonal Background using `backgroundEffects` Feature |
+| 14 | brandIcon | Now You Can Brand Logo in Your Calendar |
 
 
 ## Usage
