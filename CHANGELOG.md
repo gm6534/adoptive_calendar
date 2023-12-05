@@ -2,6 +2,7 @@
 
 * Enhance UI
 * Seasonal Effects For Background Added
+* Brand Logo Add in Features
 
 ## 0.0.6
 
