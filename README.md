@@ -13,7 +13,8 @@ This ios 14 calendar view we will update this shortly.
     <img src="https://shields.io/badge/ghulammustafa-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/gm6534" />
 </a>
 
-## Need a Professional Flutter developer? I'm available!
+## Need a Professional Flutter Developer? **[I'm available!](https://www.linkedin.com/in/gm4953)**
+
 
 A Flutter package that provides an iOS 14 Style Cupertino look in Calendar with customizable options.
 
@@ -31,7 +32,17 @@ dependencies:
   adoptive_calendar: $latestVersion
 ```
 
-# Request For a Feature or Background Effect
+
+## Themes
+
+| ![Christmas Calendar](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/Calendar-Senta.gif) | ![Snow Fall View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/Calendar-snowFall.gif) | ![Halloween View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/Halloween.jpg) | ![Smoky Leaf View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/smoky-leaves.jpg) | ![Summer View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/summer.jpg) | ![Winter View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/winter.jpg) |
+|:--------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|
+|                                                   **Christmas Calendar**                                                   |                                                  **Snow Fall View**                                                  |                                                  **Halloween View**                                                  |                                                      **Smoky Leaf View**                                                      |                                                 **Summer View**                                                  |                                               **Winter View**                                                |
+
+
+
+
+## Request For a Feature or Background Effect [![Static Badge](https://img.shields.io/badge/Request_Here-orange?style=for-the-badge)](https://forms.gle/ximFhngWJtpSjPmMA)
 
 ## Features
 
@@ -50,7 +61,7 @@ dependencies:
 | 11 | use24hFormat | Toggle between 12-hour and 24-hour time format |
 | 12 | minuteInterval | Minutes Interval for minutes to jump on minutes with specific Gap |
 | 13 | backgroundEffects | Now You Can Set Seasonal Background using `backgroundEffects` Feature |
-| 14 | brandIcon | Now You Can Brand Logo in Your Calendar |
+| 14 | brandIcon | Now You Can Brand Logo using Asset Or Network Image in Your Calendar |
 
 
 ## Usage
