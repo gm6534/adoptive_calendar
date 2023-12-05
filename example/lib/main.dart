@@ -57,13 +57,18 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
+                      brandIcon: Image.asset(
+                        'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
+                        color: Colors.white,
+                      ),
+                      // backgroundEffects: AdoptiveBackground.christmas,
                       // use24hFormat: true,
                       // minuteInterval: 1,
-                      // backgroundColor: Colors.green,
+                      // backgroundColor: Colors.blue,
                       // fontColor: Colors.white,
                       // selectedColor: Colors.yellow,
-                      // headingColor: Colors.deepPurple,
-                      // iconColor: Colors.yellow,
+                      // headingColor: Colors.white,
+                      // iconColor: Colors.white,
                       // barColor: Colors.purpleAccent,
                       // barForegroundColor: Colors.tealAccent,
                     );
@@ -75,7 +80,9 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
             )),
           ),
           const SizedBox(height: 20),
-          Center(child: Text(pickedDate.toString())),
+          Center(
+              child: Text((pickedDate ?? "Selected Date Result Once You Picked")
+                  .toString())),
           const SizedBox(height: 40),
         ],
       ),

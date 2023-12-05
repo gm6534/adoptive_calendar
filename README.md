@@ -13,6 +13,8 @@ This ios 14 calendar view we will update this shortly.
     <img src="https://shields.io/badge/ghulammustafa-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/gm6534" />
 </a>
 
+## Need a Professional Flutter developer? I'm available!
+
 A Flutter package that provides an iOS 14 Style Cupertino look in Calendar with customizable options.
 
 | ![Adoptive Calendar](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/Calendar.gif) | ![Date Picker View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/date_pick.jpg) | ![Time Picker View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/time_pick.jpg) | ![Month Year Picker View](https://raw.githubusercontent.com/gm6534/adoptive_calendar/developer/example/Demo/year_pick.jpg) |
@@ -29,10 +31,12 @@ dependencies:
   adoptive_calendar: $latestVersion
 ```
 
+# Request For a Feature or Background Effect
+
 ## Features
 
 | No. | Properties | Description |
-| :--- | :--- | :--- |
+| :-- | :--- | :--- |
 | 1 | initialDate | Set the initial date for the calendar |
 | 2 | backgroundColor | Customize the background color of the calendar |
 | 3 | fontColor | Define the font color for the calendar |
@@ -45,6 +49,7 @@ dependencies:
 | 10 | maxYear | Set the maximum allowed year in the calendar |
 | 11 | use24hFormat | Toggle between 12-hour and 24-hour time format |
 | 12 | minuteInterval | Minutes Interval for minutes to jump on minutes with specific Gap |
+| 13 | backgroundEffects | Now You Can Set Seasonal Background using `backgroundEffects` Feature|
 
 
 ## Usage
