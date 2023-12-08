@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Bugs Fixing
+
 ## 0.0.7
 
 * Enhance UI
