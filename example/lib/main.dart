@@ -59,7 +59,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                       initialDate: DateTime.now(),
                       brandIcon: Image.asset(
                         'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
-                        color: Colors.white,
+                        color: Colors.blue,
                       ),
                       // backgroundEffects: AdoptiveBackground.christmas,
                       // use24hFormat: true,
