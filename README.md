@@ -61,7 +61,7 @@ dependencies:
 | 11 | use24hFormat | Toggle between 12-hour and 24-hour time format |
 | 12 | minuteInterval | Minutes Interval for minutes to jump on minutes with specific Gap |
 | 13 | backgroundEffects | Now You Can Set Seasonal Background using `backgroundEffects` Feature |
-| 14 | brandIcon | Now You Can Brand Logo using Asset Or Network Image in Your Calendar |
+| 14 | brandIcon | Now You Can add Brand Logo using Asset Or Network Image in Your Calendar |
 
 
 ## Usage
@@ -76,14 +76,14 @@ AdoptiveCalendar(
 
 ## Contributor
 
-<img src="https://media.licdn.com/dms/image/D4D03AQEjv3jK_lGXIw/profile-displayphoto-shrink_800_800/0/1674048099839?e=1703116800&v=beta&t=i8SFCGuFALwVpEHrqwq1VV5xREeSidjoP3z8B5tWARw" alt="Ghulam Mustafa" width="70"/>   **[Ghulam Mustafa](https://www.linkedin.com/in/gm4953)** `Author`
+<img src="https://avatars.githubusercontent.com/u/92592017?v=4" alt="Ghulam Mustafa" width="70"/>   **[Ghulam Mustafa](https://www.linkedin.com/in/gm4953)** `Author`
 
 
-<img src="https://media.licdn.com/dms/image/D4D03AQFw9EJ5ckgB-A/profile-displayphoto-shrink_800_800/0/1681209998357?e=1703116800&v=beta&t=ggiJ8831ElmY-YSEfjL8TxQQIOxMupAzKQaFt_edAng" alt="Muhammad Ahmad" width="50"/>   **[Muhammad Ahmad](https://www.linkedin.com/in/muhammad-ahmad-821963133)**
+<img src="https://avatars.githubusercontent.com/u/43445599?v=4" alt="Muhammad Ahmad" width="50"/>   **[Muhammad Ahmad](https://www.linkedin.com/in/muhammad-ahmad-821963133)**
 
-<img src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg" alt="Shahid Nadeem" width="50"/>   **[Shahid Nadeem](https://www.linkedin.com/in/shahid-nadeem-0ab948195)**
+<img src="https://avatars.githubusercontent.com/u/96718958?v=4" alt="Shahid Nadeem" width="50"/>   **[Shahid Nadeem](https://www.linkedin.com/in/shahid-nadeem-0ab948195)**
 
-<img src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg" alt="Muhammad Farman" width="50"/>   **[Muhammad Farman](https://www.linkedin.com/in/muhammad-farman-969996263/)**
+<img src="https://avatars.githubusercontent.com/u/92508675?v=4" alt="Muhammad Farman" width="50"/>   **[Muhammad Farman](https://www.linkedin.com/in/muhammad-farman-969996263/)**
 
 
 We extend our heartfelt appreciation to the amazing individuals who have contributed to the development and improvement of the Adoptive Calendar Flutter package. Your valuable insights, code contributions, and dedication to enhancing this project are truly commendable. Open-source projects thrive on the generosity and expertise of contributors like you. Whether you've reported issues, suggested improvements, or submitted pull requests, your efforts have made a significant impact. Thank you for being a part of this collaborative journey. Your contributions are instrumental in making the Adoptive Calendar package a robust and user-friendly tool for the Flutter community. We look forward to continued collaboration and welcome new contributors to join us on this exciting venture!
