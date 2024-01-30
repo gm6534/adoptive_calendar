@@ -1,3 +1,7 @@
+## 0.1.1
+
+* Readme.md update
+
 ## 0.1.0
 
 * Bugs Fixing
