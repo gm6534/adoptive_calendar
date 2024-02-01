@@ -131,12 +131,13 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               initialDateTime: _selectedDate!,
               fontColor: widget.fontColor,
               onMonthYearChanged: (value) {
-                _selectedDate = DateTime(
-                    value.year,
-                    value.month,
-                    _selectedDate!.day,
-                    _selectedDate!.hour,
-                    _selectedDate!.minute);
+                int days = _selectedDate!.day;
+                if (_selectedDate!.month == DateTime.january &&
+                    _selectedDate!.day > 28) {
+                  days = getDaysInMonth(value.year, value.month);
+                }
+                _selectedDate = DateTime(value.year, value.month, days,
+                    _selectedDate!.hour, _selectedDate!.minute);
                 returnDate = _selectedDate;
                 setState(() {});
               },
@@ -296,9 +297,18 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
           if (!isYearSelected!) ...[
             IconButton(
               onPressed: () {
+                int year = _selectedDate!.year;
+                int month = _selectedDate!.month;
+                if (_selectedDate!.month == DateTime.january) {
+                  year--;
+                  month = 12;
+                } else {
+                  month = _selectedDate!.month - 1;
+                }
+                int decrement = getDaysInMonth(year, month);
                 setState(() {
                   _selectedDate =
-                      _selectedDate?.subtract(const Duration(days: 30));
+                      _selectedDate?.subtract(Duration(days: decrement));
                   returnDate = _selectedDate;
                 });
               },
@@ -311,8 +321,17 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
             const SizedBox(width: 10),
             IconButton(
               onPressed: () {
+                int year = _selectedDate!.year;
+                int month = _selectedDate!.month;
+                if (_selectedDate!.month == DateTime.december) {
+                  year++;
+                  month = 1;
+                } else {
+                  month = _selectedDate!.month + 1;
+                }
+                int increment = getDaysInMonth(year, month);
                 setState(() {
-                  _selectedDate = _selectedDate?.add(const Duration(days: 30));
+                  _selectedDate = _selectedDate?.add(Duration(days: increment));
                   returnDate = _selectedDate;
                 });
               },
@@ -591,6 +610,29 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
   bool _isSelectedDay(int day) {
     /// Check if the provided [day] matches the day of the [_selectedDate].
     return _selectedDate!.day == day;
+  }
+
+  int getDaysInMonth(int year, int month) {
+    if (month == DateTime.february) {
+      final bool isLeapYear =
+          (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
+      return isLeapYear ? 29 : 28;
+    }
+    const List<int> daysInMonth = <int>[
+      31,
+      -1,
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31
+    ];
+    return daysInMonth[month - 1];
   }
 }
 

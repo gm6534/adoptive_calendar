@@ -1,3 +1,7 @@
+## 0.1.2
+
+* Leap Year Bugs Fixed
+
 ## 0.1.1
 
 * Readme.md update
