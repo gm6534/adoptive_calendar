@@ -532,13 +532,20 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         if (!isPortrait) Container(height: screenHeight * 0.1),
         GestureDetector(
             onTap: () {
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown,
+                DeviceOrientation.landscapeRight,
+                DeviceOrientation.landscapeLeft,
+              ]);
+              returnDate ??= _selectedDate;
               Navigator.pop(context, returnDate);
             },
             child: Text(
               "Save",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: widget.fontColor,
+                  color: widget.iconColor ?? Colors.blue,
                   fontSize: 15),
             ))
       ],

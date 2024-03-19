@@ -1,6 +1,6 @@
 name: adoptive_calendar
 description: A Flutter Package That will provide to you a Date and Time Picker in IOS 14 Calendar view Style. This is an Adoptive Calendar in Cupertino View.
-version: 0.1.3
+version: 0.1.4
 homepage: https://github.com/gm6534/adoptive_calendar.git
 
 environment:

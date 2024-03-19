@@ -1,3 +1,7 @@
+## 0.1.4
+
+* Bugs Fixed
+
 ## 0.1.3
 
 * Action Button Added
