@@ -41,6 +41,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Whether to use 24-hour time format.
   final bool use24hFormat;
 
+  /// Whether to use action for Ok.
+  final bool action;
+
   /// Brand Icon will show your app identity and enhance user interest
   final Widget? brandIcon;
 
@@ -69,6 +72,7 @@ class AdoptiveCalendar extends StatefulWidget {
     this.use24hFormat = false,
     this.brandIcon,
     this.backgroundEffects = AdoptiveBackground.none,
+    this.action = false,
   });
 
   @override
@@ -350,167 +354,194 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         ),
     ];
 
-    List<Widget> pickTimeBody = [
-      if (widget.brandIcon != null)
-        Center(
-          child:
-              SizedBox(height: isPortrait ? 35 : 45, child: widget.brandIcon!),
-        ),
-      if (widget.brandIcon == null)
-        Text(
-          "Time",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 17,
-              color: widget.headingColor),
-        ),
-      if (isPortrait) Expanded(child: Container()),
-      if (!isPortrait) Container(height: screenHeight * 0.1),
-      GestureDetector(
-        onTap: () {
-          isTimeSelected = !isTimeSelected!;
-          isYearSelected = false;
-          setState(() {});
-        },
-        child: Container(
-          height: 40,
-          width: screenWidth * (isPortrait ? 0.25 : 0.3),
-          decoration: BoxDecoration(
-              color: (widget.barColor ?? Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(5)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              // child: Text("${_selectedDate.hour}:${_selectedDate.minute}",
-              child: FittedBox(
-                child: Text(
-                  _selectedDate!
-                      .format12Hour(use24HoursFormat: widget.use24hFormat),
-                  style: TextStyle(
-                      color: widget.barColor != null ? widget.fontColor : null,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      letterSpacing: 3),
+    Widget amPMWidget = Container(
+      height: 40,
+      width: screenWidth * (isPortrait ? 0.32 : 0.3),
+      decoration: BoxDecoration(
+          color: widget.barColor ?? Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(5)),
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: isTimeSelected!
+                      ? null
+                      : () {
+                          isAM = !isAM!;
+                          _selectedDate = DateTime(
+                              _selectedDate!.year,
+                              _selectedDate!.month,
+                              _selectedDate!.day,
+                              isAM!
+                                  ? _selectedDate!.hour % 12 == 0
+                                      ? 12
+                                      : _selectedDate!.hour % 12
+                                  : _selectedDate!.hour + 12,
+                              _selectedDate!.minute);
+                          returnDate = _selectedDate;
+                          setState(() {});
+                        },
+                  child: Container(
+                    // height: 40,
+                    // width: screenWidth * 0.14,
+                    decoration: BoxDecoration(
+                        color: isAM!
+                            ? widget.barForegroundColor ?? Colors.white
+                            : null,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          "AM",
+                          style: TextStyle(
+                            color: widget.barForegroundColor != null
+                                ? widget.fontColor
+                                : null,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
+              ),
+              SizedBox(width: screenWidth * 0.01),
+              Expanded(
+                child: GestureDetector(
+                  onTap: isTimeSelected!
+                      ? null
+                      : () {
+                          isAM = !isAM!;
+                          _selectedDate = DateTime(
+                              _selectedDate!.year,
+                              _selectedDate!.month,
+                              _selectedDate!.day,
+                              isAM!
+                                  ? _selectedDate!.hour % 12 == 0
+                                      ? 12
+                                      : _selectedDate!.hour % 12
+                                  : _selectedDate!.hour + 12,
+                              _selectedDate!.minute);
+                          returnDate = _selectedDate;
+                          setState(() {});
+                        },
+                  child: Container(
+                    // height: 40,
+                    // width: screenWidth * 0.14,
+                    decoration: BoxDecoration(
+                        color: !isAM!
+                            ? widget.barForegroundColor ?? Colors.white
+                            : null,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          "PM",
+                          style: TextStyle(
+                            color: widget.barForegroundColor != null
+                                ? widget.fontColor
+                                : null,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    Widget timeWidget = GestureDetector(
+      onTap: () {
+        isTimeSelected = !isTimeSelected!;
+        isYearSelected = false;
+        setState(() {});
+      },
+      child: Container(
+        height: 40,
+        width: screenWidth * (isPortrait ? 0.25 : 0.3),
+        decoration: BoxDecoration(
+            color: (widget.barColor ?? Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            // child: Text("${_selectedDate.hour}:${_selectedDate.minute}",
+            child: FittedBox(
+              child: Text(
+                _selectedDate!
+                    .format12Hour(use24HoursFormat: widget.use24hFormat),
+                style: TextStyle(
+                    color: widget.barColor != null ? widget.fontColor : null,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    letterSpacing: 3),
               ),
             ),
           ),
         ),
       ),
+    );
+
+    List<Widget> pickTimeBody = [
+      /// Brand Logo Widget
+      if (!widget.action || widget.use24hFormat) ...[
+        if (widget.brandIcon != null)
+          Center(
+            child: SizedBox(
+                height: isPortrait ? 35 : 45, child: widget.brandIcon!),
+          )
+        else
+          Text(
+            "Time",
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+                color: widget.headingColor),
+          ),
+        if (isPortrait) Expanded(child: Container()),
+        if (!isPortrait) Container(height: screenHeight * 0.1),
+      ],
+
+      /// Time Widget
+      timeWidget,
+
       // if (!widget.use24hFormat!)
+      /// AM-PM Widget
       ...[
         if (isPortrait) SizedBox(width: screenWidth * 0.02),
         if (!isPortrait) Container(height: screenHeight * 0.1),
-        if (!widget.use24hFormat)
-          Container(
-            height: 40,
-            width: screenWidth * (isPortrait ? 0.32 : 0.3),
-            decoration: BoxDecoration(
-                color: widget.barColor ?? Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(5)),
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: isTimeSelected!
-                            ? null
-                            : () {
-                                isAM = !isAM!;
-                                _selectedDate = DateTime(
-                                    _selectedDate!.year,
-                                    _selectedDate!.month,
-                                    _selectedDate!.day,
-                                    isAM!
-                                        ? _selectedDate!.hour % 12 == 0
-                                            ? 12
-                                            : _selectedDate!.hour % 12
-                                        : _selectedDate!.hour + 12,
-                                    _selectedDate!.minute);
-                                returnDate = _selectedDate;
-                                setState(() {});
-                              },
-                        child: Container(
-                          // height: 40,
-                          // width: screenWidth * 0.14,
-                          decoration: BoxDecoration(
-                              color: isAM!
-                                  ? widget.barForegroundColor ?? Colors.white
-                                  : null,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                "AM",
-                                style: TextStyle(
-                                  color: widget.barForegroundColor != null
-                                      ? widget.fontColor
-                                      : null,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: screenWidth * 0.01),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: isTimeSelected!
-                            ? null
-                            : () {
-                                isAM = !isAM!;
-                                _selectedDate = DateTime(
-                                    _selectedDate!.year,
-                                    _selectedDate!.month,
-                                    _selectedDate!.day,
-                                    isAM!
-                                        ? _selectedDate!.hour % 12 == 0
-                                            ? 12
-                                            : _selectedDate!.hour % 12
-                                        : _selectedDate!.hour + 12,
-                                    _selectedDate!.minute);
-                                returnDate = _selectedDate;
-                                setState(() {});
-                              },
-                        child: Container(
-                          // height: 40,
-                          // width: screenWidth * 0.14,
-                          decoration: BoxDecoration(
-                              color: !isAM!
-                                  ? widget.barForegroundColor ?? Colors.white
-                                  : null,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                "PM",
-                                style: TextStyle(
-                                  color: widget.barForegroundColor != null
-                                      ? widget.fontColor
-                                      : null,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-      ]
+        if (!widget.use24hFormat) amPMWidget
+      ],
+
+      /// Action Widget
+      if (widget.action) ...[
+        if (isPortrait) Expanded(child: Container()),
+        if (!isPortrait) Container(height: screenHeight * 0.1),
+        GestureDetector(
+            onTap: () {
+              Navigator.pop(context, returnDate);
+            },
+            child: Text(
+              "Save",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: widget.fontColor,
+                  fontSize: 15),
+            ))
+      ],
     ];
 
     return PopScope(
@@ -527,7 +558,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         ]);
 
         /// Close the current screen and return the [returnDate] to the previous screen.
-        Navigator.pop(context, returnDate);
+        Navigator.pop(context, widget.action ? null : returnDate);
       },
       child: Dialog(
         backgroundColor: widget.backgroundColor,
