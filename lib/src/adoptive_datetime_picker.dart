@@ -569,6 +569,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       },
       child: Dialog(
         backgroundColor: widget.backgroundColor,
+        surfaceTintColor: widget.backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         insetPadding: EdgeInsets.symmetric(horizontal: isPortrait ? 20 : 60),
         child: Container(

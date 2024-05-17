@@ -1,3 +1,8 @@
+## 0.1.5
+
+* Bugs Fixed
+* Improve UI According to Material 3
+
 ## 0.1.4
 
 * Bugs Fixed
