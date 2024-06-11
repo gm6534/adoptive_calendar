@@ -44,6 +44,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Whether to use action for Ok.
   final bool action;
 
+  /// Whether to use datePickerOnly for just date picker.
+  final bool datePickerOnly;
+
   /// Brand Icon will show your app identity and enhance user interest
   final Widget? brandIcon;
 
@@ -73,7 +76,13 @@ class AdoptiveCalendar extends StatefulWidget {
     this.brandIcon,
     this.backgroundEffects = AdoptiveBackground.none,
     this.action = false,
-  });
+    this.datePickerOnly = false,
+  })  : assert(!(datePickerOnly && brandIcon != null),
+            'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
+        assert(!(datePickerOnly && minuteInterval > 1),
+            'You cannot use minuteInterval when datePickerOnly is true. If you want to use minuteInterval then remove datePickerOnly'),
+        assert(!(datePickerOnly && use24hFormat),
+            'You cannot use use24hFormat when datePickerOnly is true. If you want to use use24hFormat then remove datePickerOnly');
 
   @override
   State<AdoptiveCalendar> createState() => _AdoptiveCalendarState();
@@ -197,9 +206,12 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       itemCount: 7 * 6, // 7 days a week, 6 weeks maximum
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 1,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: (!isPortrait &&
+                                widget.datePickerOnly &&
+                                widget.action)
+                            ? 1.2
+                            : 1,
                         crossAxisCount: 7,
                       ),
                       itemBuilder: (context, index) {
@@ -267,6 +279,25 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                   ],
                 ),
               );
+
+    Widget actionButton = GestureDetector(
+        onTap: () {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
+          ]);
+          returnDate ??= _selectedDate;
+          Navigator.pop(context, returnDate);
+        },
+        child: Text(
+          "Save",
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: widget.iconColor ?? Colors.blue,
+              fontSize: 15),
+        ));
 
     List<Widget> topArrowBody = [
       Row(
@@ -530,26 +561,106 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       if (widget.action) ...[
         if (isPortrait) Expanded(child: Container()),
         if (!isPortrait) Container(height: screenHeight * 0.1),
-        GestureDetector(
-            onTap: () {
-              SystemChrome.setPreferredOrientations([
-                DeviceOrientation.portraitUp,
-                DeviceOrientation.portraitDown,
-                DeviceOrientation.landscapeRight,
-                DeviceOrientation.landscapeLeft,
-              ]);
-              returnDate ??= _selectedDate;
-              Navigator.pop(context, returnDate);
-            },
-            child: Text(
-              "Save",
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: widget.iconColor ?? Colors.blue,
-                  fontSize: 15),
-            ))
+        actionButton,
       ],
     ];
+
+    Widget defaultCalendar = isPortrait
+        ? SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Upper Section
+                ...topArrowBody,
+                calendarBody,
+                // Lower Section
+                const Divider(
+                  thickness: 0.5,
+                ),
+                Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: pickTimeBody),
+              ],
+            ),
+          )
+        : SizedBox(
+            width: screenWidth * 0.7,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ...topArrowBody,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          // height: screenHeight * 0.57,
+                          // width: screenWidth / 3,
+                          child: calendarBody),
+                      // const Spacer(),
+                      Expanded(
+                          // height: screenHeight * 0.57,
+                          // width: screenWidth / 3,
+                          child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: pickTimeBody,
+                        ),
+                      )),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+
+    Widget calendarDatePickerOnly = isPortrait
+        ? SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Upper Section
+                ...topArrowBody,
+                calendarBody,
+                // Lower Section
+                if (widget.action) ...[
+                  const Divider(
+                    thickness: 0.5,
+                  ),
+                  actionButton
+                ]
+                // Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: pickTimeBody),
+              ],
+            ),
+          )
+        : SizedBox(
+            width: screenWidth * (widget.datePickerOnly ? 0.35 : 0.7),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ...topArrowBody,
+                  calendarBody,
+                  if (widget.action) ...[
+                    const Divider(
+                      thickness: 0.5,
+                    ),
+                    actionButton
+                  ]
+                ],
+              ),
+            ),
+          );
 
     return PopScope(
       canPop: false,
@@ -586,60 +697,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               vertical: 10,
               horizontal: 15.0,
             ),
-            child: isPortrait
-                ? SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Upper Section
-                        ...topArrowBody,
-                        calendarBody,
-                        // Lower Section
-                        const Divider(
-                          thickness: 0.5,
-                        ),
-                        Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: pickTimeBody),
-                      ],
-                    ),
-                  )
-                : SizedBox(
-                    width: screenWidth * 0.7,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ...topArrowBody,
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                  // height: screenHeight * 0.57,
-                                  // width: screenWidth / 3,
-                                  child: calendarBody),
-                              // const Spacer(),
-                              Expanded(
-                                  // height: screenHeight * 0.57,
-                                  // width: screenWidth / 3,
-                                  child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: pickTimeBody,
-                                ),
-                              )),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+            child: widget.datePickerOnly
+                ? calendarDatePickerOnly
+                : defaultCalendar,
           ),
         ),
       ),

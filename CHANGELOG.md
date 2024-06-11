@@ -1,3 +1,7 @@
+## 0.1.6
+
+* Add option for Date Picker only
+
 ## 0.1.5
 
 * Bugs Fixed
