@@ -50,6 +50,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Brand Icon will show your app identity and enhance user interest
   final Widget? brandIcon;
 
+  /// onSelection will return current Selection
+  final Function(DateTime?)? onSelection;
+
   /// Background effects will make attractive
   final AdoptiveBackground backgroundEffects;
 
@@ -77,6 +80,7 @@ class AdoptiveCalendar extends StatefulWidget {
     this.backgroundEffects = AdoptiveBackground.none,
     this.action = false,
     this.datePickerOnly = false,
+    this.onSelection,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
@@ -152,6 +156,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 _selectedDate = DateTime(value.year, value.month, days,
                     _selectedDate!.hour, _selectedDate!.minute);
                 returnDate = _selectedDate;
+                if (widget.onSelection != null) {
+                  widget.onSelection!(returnDate);
+                }
                 setState(() {});
               },
             ),
@@ -173,6 +180,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                         value.minute);
                     isAM = _selectedDate!.hour < 12;
                     returnDate = _selectedDate;
+                    if (widget.onSelection != null) {
+                      widget.onSelection!(returnDate);
+                    }
                     setState(() {});
                   },
                 ),
@@ -236,6 +246,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                     _selectedDate!.hour,
                                     _selectedDate!.minute);
                                 returnDate = _selectedDate;
+                                if (widget.onSelection != null) {
+                                  widget.onSelection!(returnDate);
+                                }
                               });
                             }
                           },
@@ -345,6 +358,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                   _selectedDate =
                       _selectedDate?.subtract(Duration(days: decrement));
                   returnDate = _selectedDate;
+                  if (widget.onSelection != null) {
+                    widget.onSelection!(returnDate);
+                  }
                 });
               },
               icon: Icon(
@@ -368,6 +384,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 setState(() {
                   _selectedDate = _selectedDate?.add(Duration(days: increment));
                   returnDate = _selectedDate;
+                  if (widget.onSelection != null) {
+                    widget.onSelection!(returnDate);
+                  }
                 });
               },
               icon: Icon(
@@ -414,6 +433,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                   : _selectedDate!.hour + 12,
                               _selectedDate!.minute);
                           returnDate = _selectedDate;
+                          if (widget.onSelection != null) {
+                            widget.onSelection!(returnDate);
+                          }
                           setState(() {});
                         },
                   child: Container(
@@ -460,6 +482,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                   : _selectedDate!.hour + 12,
                               _selectedDate!.minute);
                           returnDate = _selectedDate;
+                          if (widget.onSelection != null) {
+                            widget.onSelection!(returnDate);
+                          }
                           setState(() {});
                         },
                   child: Container(

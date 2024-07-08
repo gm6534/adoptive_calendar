@@ -1,3 +1,8 @@
+## 0.1.7
+
+* Add onSelection for current picked value
+* Add ability to select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI.
+
 ## 0.1.6
 
 * Add option for Date Picker only

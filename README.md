@@ -46,24 +46,25 @@ dependencies:
 
 ## Features
 
-| No. | Properties         | Description                                                          |
-|:----|:-------------------|:---------------------------------------------------------------------|
-| 1   | initialDate        | Set the initial date for the calendar                                |
-| 2   | backgroundColor    | Customize the background color of the calendar                       |
-| 3   | fontColor          | Define the font color for the calendar                               |
-| 4   | selectedColor      | Set the color for the selected date                                  |
-| 5   | headingColor       | Customize the color of the calendar headings                         |
-| 6   | barColor           | Set the color of the calendar bar                                    |
-| 7   | barForegroundColor | Define the foreground color of the calendar bar                      |
-| 8   | iconColor          | Customize the color of the calendar icons                            |
-| 9   | minYear            | Set the minimum allowed year in the calendar                         |
-| 10  | maxYear            | Set the maximum allowed year in the calendar                         |
-| 11  | use24hFormat       | Toggle between 12-hour and 24-hour time format                       |
-| 12  | minuteInterval     | Minutes Interval for minutes to jump on minutes with specific Gap    |
-| 13  | backgroundEffects  | You Can Set Seasonal Background using `backgroundEffects` Feature    |
-| 14  | brandIcon          | You Can add Brand Logo using Asset Or Network Image in Your Calendar |
-| 15  | action             | You Can use Action Button in Your Calendar                           |
-| 16  | datePickerOnly     | Now You Can use just Date Picker Calendar option.                    |
+| No. | Properties         | Description                                                                                                                                    |
+|:----|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| 1   | initialDate        | Set the initial date for the calendar                                                                                                          |
+| 2   | backgroundColor    | Customize the background color of the calendar                                                                                                 |
+| 3   | fontColor          | Define the font color for the calendar                                                                                                         |
+| 4   | selectedColor      | Set the color for the selected date                                                                                                            |
+| 5   | headingColor       | Customize the color of the calendar headings                                                                                                   |
+| 6   | barColor           | Set the color of the calendar bar                                                                                                              |
+| 7   | barForegroundColor | Define the foreground color of the calendar bar                                                                                                |
+| 8   | iconColor          | Customize the color of the calendar icons                                                                                                      |
+| 9   | minYear            | Set the minimum allowed year in the calendar                                                                                                   |
+| 10  | maxYear            | Set the maximum allowed year in the calendar                                                                                                   |
+| 11  | use24hFormat       | Toggle between 12-hour and 24-hour time format                                                                                                 |
+| 12  | minuteInterval     | Minutes Interval for minutes to jump on minutes with specific Gap                                                                              |
+| 13  | backgroundEffects  | You Can Set Seasonal Background using `backgroundEffects` Feature                                                                              |
+| 14  | brandIcon          | You Can add Brand Logo using Asset Or Network Image in Your Calendar                                                                           |
+| 15  | action             | You Can use Action Button in Your Calendar                                                                                                     |
+| 16  | datePickerOnly     | Now You Can use just Date Picker Calendar option.                                                                                              |
+| 17  | onSelection        | With `onSelection` you can select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI. |
 
 
 ## Usage
