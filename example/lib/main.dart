@@ -51,162 +51,162 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      brandIcon: Image.asset(
-                        'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
-                        color: Colors.blue,
-                      ),
-                      // datePickerOnly: true,
-                      // action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          brandIcon: Image.asset(
+                            'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
+                            color: Colors.blue,
+                          ),
+                          // datePickerOnly: true,
+                          // action: true,
+                          // backgroundEffects: AdoptiveBackground.christmas,
+                          // use24hFormat: true,
+                          // minuteInterval: 1,
+                          // backgroundColor: Colors.blue,
+                          // fontColor: Colors.white,
+                          // selectedColor: Colors.yellow,
+                          // headingColor: Colors.white,
+                          // iconColor: Colors.white,
+                          // barColor: Colors.purpleAccent,
+                          // barForegroundColor: Colors.tealAccent,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open Default Calendar"),
-            )),
+                  child: const Text("Open Default Calendar"),
+                )),
           ),
           const SizedBox(height: 10),
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      brandIcon: Image.asset(
-                        'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
-                        color: Colors.blue,
-                      ),
-                      action: true,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          brandIcon: Image.asset(
+                            'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
+                            color: Colors.blue,
+                          ),
+                          action: true,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open Default Calendar with action"),
-            )),
+                  child: const Text("Open Default Calendar with action"),
+                )),
           ),
           const SizedBox(height: 10),
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      use24hFormat: true,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          use24hFormat: true,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open 24 Hours Format Calendar"),
-            )),
+                  child: const Text("Open 24 Hours Format Calendar"),
+                )),
           ),
           const SizedBox(height: 10),
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      datePickerOnly: true,
-                      // action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          datePickerOnly: true,
+                          // action: true,
+                          // backgroundEffects: AdoptiveBackground.christmas,
+                          // use24hFormat: true,
+                          // minuteInterval: 1,
+                          // backgroundColor: Colors.blue,
+                          // fontColor: Colors.white,
+                          // selectedColor: Colors.yellow,
+                          // headingColor: Colors.white,
+                          // iconColor: Colors.white,
+                          // barColor: Colors.purpleAccent,
+                          // barForegroundColor: Colors.tealAccent,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open Date Picker Only"),
-            )),
+                  child: const Text("Open Date Picker Only"),
+                )),
           ),
           const SizedBox(height: 10),
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      datePickerOnly: true,
-                      action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          datePickerOnly: true,
+                          action: true,
+                          // backgroundEffects: AdoptiveBackground.christmas,
+                          // use24hFormat: true,
+                          // minuteInterval: 1,
+                          // backgroundColor: Colors.blue,
+                          // fontColor: Colors.white,
+                          // selectedColor: Colors.yellow,
+                          // headingColor: Colors.white,
+                          // iconColor: Colors.white,
+                          // barColor: Colors.purpleAccent,
+                          // barForegroundColor: Colors.tealAccent,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open Date Picker with action"),
-            )),
+                  child: const Text("Open Date Picker with action"),
+                )),
           ),
           const SizedBox(height: 10),
           Flexible(
             child: Center(
                 child: ElevatedButton(
-              onPressed: () async {
-                pickedDate = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AdoptiveCalendar(
-                      initialDate: DateTime.now(),
-                      backgroundEffects: AdoptiveBackground.summer,
-                      // use24hFormat: true,
-                      fontColor: Colors.white,
-                      selectedColor: Colors.yellowAccent,
-                      headingColor: Colors.white,
-                      iconColor: Colors.white,
-                      barForegroundColor: Colors.lightGreen,
+                  onPressed: () async {
+                    pickedDate = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdoptiveCalendar(
+                          initialDate: DateTime.now(),
+                          backgroundEffects: AdoptiveBackground.summer,
+                          // use24hFormat: true,
+                          fontColor: Colors.white,
+                          selectedColor: Colors.yellowAccent,
+                          headingColor: Colors.white,
+                          iconColor: Colors.white,
+                          barForegroundColor: Colors.lightGreen,
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: const Text("Open Calendar with Theme"),
-            )),
+                  child: const Text("Open Calendar with Theme"),
+                )),
           ),
           const Spacer(),
           Center(
