@@ -1,3 +1,7 @@
+## 0.1.8
+
+* Bugs Fixed
+
 ## 0.1.7
 
 * Add onSelection for current picked value

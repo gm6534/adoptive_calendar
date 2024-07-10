@@ -56,6 +56,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Background effects will make attractive
   final AdoptiveBackground backgroundEffects;
 
+  /// contentPadding will use for custom padding
+  final EdgeInsets? contentPadding;
+
   /// Creates an instance of [AdoptiveCalendar].
   ///
   /// The [initialDate] is required and represents the date to be initially
@@ -81,6 +84,7 @@ class AdoptiveCalendar extends StatefulWidget {
     this.action = false,
     this.datePickerOnly = false,
     this.onSelection,
+    this.contentPadding,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
@@ -718,10 +722,11 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 )
               : null,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 15.0,
-            ),
+            padding: widget.contentPadding ??
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 15.0,
+                ),
             child: widget.datePickerOnly
                 ? calendarDatePickerOnly
                 : defaultCalendar,
