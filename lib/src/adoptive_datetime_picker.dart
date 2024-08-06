@@ -59,6 +59,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// contentPadding will use for custom padding
   final EdgeInsets? contentPadding;
 
+  /// disable the dates before today
+  final bool disablePastDates;
+
   /// Creates an instance of [AdoptiveCalendar].
   ///
   /// The [initialDate] is required and represents the date to be initially
@@ -85,6 +88,7 @@ class AdoptiveCalendar extends StatefulWidget {
     this.datePickerOnly = false,
     this.onSelection,
     this.contentPadding,
+    this.disablePastDates = false,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
@@ -234,14 +238,45 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                     1)
                                 .weekday +
                             2;
+                        final currentDate = DateTime(
+                            _selectedDate!.year, _selectedDate!.month, day);
+
+                        // Check if the day is selectable
+                        bool isSelectable = day > 0 &&
+                            day <=
+                                DateTime(_selectedDate!.year,
+                                        _selectedDate!.month + 1, 0)
+                                    .day &&
+                            (!widget.disablePastDates ||
+                                currentDate.isAfter(DateTime.now()
+                                    .subtract(const Duration(days: 1))) ||
+                                currentDate.isAtSameMomentAs(DateTime.now()));
+
+                        // Determine the color of the date
+                        Color? textColor = day <= 0 ||
+                                day >
+                                    DateTime(_selectedDate!.year,
+                                            _selectedDate!.month + 1, 0)
+                                        .day
+                            ? Colors.transparent
+                            : _isSelectedDay(day)
+                                ? (widget.selectedColor ?? Colors.blue)
+                                : (widget.disablePastDates &&
+                                        (currentDate.isBefore(DateTime.now()
+                                                .toLocal()
+                                                .subtract(
+                                                    const Duration(days: 1))) ||
+                                            currentDate.isAtSameMomentAs(
+                                                DateTime.now().toLocal())))
+                                    ? (currentDate.isAtSameMomentAs(
+                                            DateTime.now().toLocal())
+                                        ? widget.fontColor
+                                        : Colors.grey)
+                                    : widget.fontColor;
 
                         return GestureDetector(
                           onTap: () {
-                            if (day > 0 &&
-                                day <=
-                                    DateTime(_selectedDate!.year,
-                                            _selectedDate!.month + 1, 0)
-                                        .day) {
+                            if (isSelectable) {
                               setState(() {
                                 _selectedDate = DateTime(
                                     _selectedDate!.year,
@@ -260,17 +295,18 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                             alignment: Alignment.center,
                             margin: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: day <= 0 ||
-                                        day >
-                                            DateTime(_selectedDate!.year,
-                                                    _selectedDate!.month + 1, 0)
-                                                .day
-                                    ? Colors.transparent
-                                    : _isSelectedDay(day)
-                                        ? (widget.selectedColor ?? Colors.blue)
-                                            .withOpacity(0.1)
-                                        : Colors.transparent,
-                                shape: BoxShape.circle),
+                              color: day <= 0 ||
+                                      day >
+                                          DateTime(_selectedDate!.year,
+                                                  _selectedDate!.month + 1, 0)
+                                              .day
+                                  ? Colors.transparent
+                                  : _isSelectedDay(day)
+                                      ? (widget.selectedColor ?? Colors.blue)
+                                          .withOpacity(0.1)
+                                      : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
                             child: Text(
                               day <= 0 ||
                                       day >
@@ -283,10 +319,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                 fontWeight: _isSelectedDay(day)
                                     ? FontWeight.w600
                                     : FontWeight.normal,
-                                color: (_isSelectedDay(day) ||
-                                        day == DateTime.now().day)
-                                    ? (widget.selectedColor ?? Colors.blue)
-                                    : widget.fontColor,
+                                color: textColor,
                               ),
                             ),
                           ),
@@ -348,66 +381,29 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
           Expanded(child: Container()),
           if (!isYearSelected!) ...[
             IconButton(
-              onPressed: () {
-                int year = _selectedDate!.year;
-                int month = _selectedDate!.month;
-                if (_selectedDate!.month == DateTime.january) {
-                  year--;
-                  month = 12;
-                } else {
-                  month = _selectedDate!.month - 1;
-                }
-                int decrement = getDaysInMonth(year, month);
-                setState(() {
-                  _selectedDate =
-                      _selectedDate?.subtract(Duration(days: decrement));
-                  returnDate = _selectedDate;
-                  if (widget.onSelection != null) {
-                    widget.onSelection!(returnDate);
-                  }
-                });
-              },
+              onPressed: () => _handleMonthChange(false),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 color: widget.iconColor ?? Colors.blue,
                 size: 15,
               ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
             ),
-            const SizedBox(width: 10),
             IconButton(
-              onPressed: () {
-                int year = _selectedDate!.year;
-                int month = _selectedDate!.month;
-                if (_selectedDate!.month == DateTime.december) {
-                  year++;
-                  month = 1;
-                } else {
-                  month = _selectedDate!.month + 1;
-                }
-                int increment = getDaysInMonth(year, month);
-                setState(() {
-                  _selectedDate = _selectedDate?.add(Duration(days: increment));
-                  returnDate = _selectedDate;
-                  if (widget.onSelection != null) {
-                    widget.onSelection!(returnDate);
-                  }
-                });
-              },
+              onPressed: () => _handleMonthChange(true),
               icon: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: widget.iconColor ?? Colors.blue,
                 size: 15,
               ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
             ),
-          ]
+          ],
         ],
-      ),
-      if (isPortrait)
-        const SizedBox(
-          height: 10,
-        ),
+      )
     ];
-
     Widget amPMWidget = Container(
       height: 40,
       width: screenWidth * (isPortrait ? 0.32 : 0.3),
@@ -734,6 +730,45 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         ),
       ),
     );
+  }
+
+// Handle month decrement
+  void _handleMonthChange(bool isForward) {
+    int year = _selectedDate!.year;
+    int month = _selectedDate!.month;
+
+    if (isForward) {
+      if (month == DateTime.december) {
+        year++;
+        month = 1;
+      } else {
+        month++;
+      }
+    } else {
+      if (month == DateTime.january) {
+        year--;
+        month = DateTime.december;
+      } else {
+        month--;
+      }
+    }
+
+    int maxDays = getDaysInMonth(year, month);
+    int selectedDay = _selectedDate!.day;
+
+    // Reset to current date if selected day is invalid in the new month
+    if (selectedDay > maxDays) {
+      selectedDay = DateTime.now().day;
+    }
+
+    setState(() {
+      _selectedDate = DateTime(
+          year, month, selectedDay, _selectedDate!.hour, _selectedDate!.minute);
+      returnDate = _selectedDate;
+      if (widget.onSelection != null) {
+        widget.onSelection!(returnDate);
+      }
+    });
   }
 
   bool _isSelectedDay(int day) {
