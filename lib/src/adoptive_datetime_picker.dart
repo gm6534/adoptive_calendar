@@ -123,6 +123,28 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     isAM = _selectedDate!.hour < 12;
 
     super.initState();
+
+    _resetIfBeforeCurrentDate();
+  }
+
+  void _resetIfBeforeCurrentDate() {
+    final now = DateTime.now();
+    if (widget.disablePastDates &&
+        _selectedDate != null &&
+        _selectedDate!.isBefore(now)) {
+      _selectedDate = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        _selectedDate!.hour,
+        _selectedDate!.minute,
+      );
+      returnDate = _selectedDate;
+      if (widget.onSelection != null) {
+        widget.onSelection!(returnDate);
+      }
+      setState(() {});
+    }
   }
 
   @override
@@ -167,6 +189,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 if (widget.onSelection != null) {
                   widget.onSelection!(returnDate);
                 }
+                _resetIfBeforeCurrentDate();
+
                 setState(() {});
               },
             ),
@@ -191,6 +215,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                     if (widget.onSelection != null) {
                       widget.onSelection!(returnDate);
                     }
+                    _resetIfBeforeCurrentDate();
+
                     setState(() {});
                   },
                 ),
@@ -288,6 +314,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                 if (widget.onSelection != null) {
                                   widget.onSelection!(returnDate);
                                 }
+                                _resetIfBeforeCurrentDate();
                               });
                             }
                           },
@@ -768,6 +795,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       if (widget.onSelection != null) {
         widget.onSelection!(returnDate);
       }
+      _resetIfBeforeCurrentDate();
     });
   }
 
