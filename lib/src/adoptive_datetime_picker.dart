@@ -128,7 +128,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
   }
 
   void _resetIfBeforeCurrentDate() {
-    final now = DateTime.now();
+    final now = widget.initialDate;
     if (widget.disablePastDates &&
         _selectedDate != null &&
         _selectedDate!.isBefore(now)) {
@@ -274,9 +274,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                         _selectedDate!.month + 1, 0)
                                     .day &&
                             (!widget.disablePastDates ||
-                                currentDate.isAfter(DateTime.now()
+                                currentDate.isAfter(widget.initialDate
                                     .subtract(const Duration(days: 1))) ||
-                                currentDate.isAtSameMomentAs(DateTime.now()));
+                                currentDate
+                                    .isAtSameMomentAs(widget.initialDate));
 
                         // Determine the color of the date
                         Color? textColor = day <= 0 ||
@@ -288,14 +289,14 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                             : _isSelectedDay(day)
                                 ? (widget.selectedColor ?? Colors.blue)
                                 : (widget.disablePastDates &&
-                                        (currentDate.isBefore(DateTime.now()
+                                        (currentDate.isBefore(widget.initialDate
                                                 .toLocal()
                                                 .subtract(
                                                     const Duration(days: 1))) ||
                                             currentDate.isAtSameMomentAs(
-                                                DateTime.now().toLocal())))
+                                                widget.initialDate.toLocal())))
                                     ? (currentDate.isAtSameMomentAs(
-                                            DateTime.now().toLocal())
+                                            widget.initialDate.toLocal())
                                         ? widget.fontColor
                                         : Colors.grey)
                                     : widget.fontColor;
@@ -783,9 +784,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     int maxDays = getDaysInMonth(year, month);
     int selectedDay = _selectedDate!.day;
 
-    // Reset to current date if selected day is invalid in the new month
+    // Reset to initialDate date if selected day is invalid in the new month
     if (selectedDay > maxDays) {
-      selectedDay = DateTime.now().day;
+      selectedDay = widget.initialDate.day;
     }
 
     setState(() {
