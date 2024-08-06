@@ -57,7 +57,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
-                      disablePastDates: false,
                       brandIcon: Image.asset(
                         'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
                         color: Colors.blue,

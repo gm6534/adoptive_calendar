@@ -1,3 +1,7 @@
+## 0.1.9
+
+* Add `disablePastDates` parameter to disable previous dates
+
 ## 0.1.8
 
 * Bugs Fixed
