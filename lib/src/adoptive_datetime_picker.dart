@@ -1,6 +1,8 @@
 import 'package:adoptive_calendar/src/time_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'constants.dart';
 import 'month_year_picker.dart';
 
@@ -62,6 +64,12 @@ class AdoptiveCalendar extends StatefulWidget {
   /// disable the dates before today
   final bool disablePastDates;
 
+  /// Month Year Mode
+  final CupertinoDatePickerMode monthYearMode;
+
+  /// Month Year Order
+  final DatePickerDateOrder? monthYearOrder;
+
   /// Creates an instance of [AdoptiveCalendar].
   ///
   /// The [initialDate] is required and represents the date to be initially
@@ -89,12 +97,19 @@ class AdoptiveCalendar extends StatefulWidget {
     this.onSelection,
     this.contentPadding,
     this.disablePastDates = false,
+    this.monthYearMode = CupertinoDatePickerMode.monthYear,
+    this.monthYearOrder,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
             'You cannot use minuteInterval when datePickerOnly is true. If you want to use minuteInterval then remove datePickerOnly'),
         assert(!(datePickerOnly && use24hFormat),
-            'You cannot use use24hFormat when datePickerOnly is true. If you want to use use24hFormat then remove datePickerOnly');
+            'You cannot use use24hFormat when datePickerOnly is true. If you want to use use24hFormat then remove datePickerOnly'),
+        assert(
+          monthYearMode == CupertinoDatePickerMode.date ||
+              monthYearMode == CupertinoDatePickerMode.monthYear,
+          'Unsupported mode! Only CupertinoDatePickerMode.date and CupertinoDatePickerMode.monthYear are allowed here.',
+        );
 
   @override
   State<AdoptiveCalendar> createState() => _AdoptiveCalendarState();
@@ -173,6 +188,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         ? SizedBox(
             height: screenHeight * (isPortrait ? 0.29 : 0.55),
             child: DatePicker(
+              mode: widget.monthYearMode,
+              dateOrder: widget.monthYearOrder,
               minYear: widget.minYear,
               maxYear: widget.maxYear,
               initialDateTime: _selectedDate!,
@@ -228,7 +245,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                     GridView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      itemCount: 7, // 7 days a week, 6 weeks maximum
+                      itemCount: 7,
+                      // 7 days a week, 6 weeks maximum
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 7,
@@ -249,7 +267,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                     GridView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      itemCount: 7 * 6, // 7 days a week, 6 weeks maximum
+                      itemCount: 7 * 6,
+                      // 7 days a week, 6 weeks maximum
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: (!isPortrait &&
                                 widget.datePickerOnly &&
@@ -412,7 +431,11 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               onPressed: () => _handleMonthChange(false),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: widget.iconColor ?? Colors.blue,
+                color: _selectedDate!.year >
+                            (widget.minYear ?? DateTime.now().year) ||
+                        _selectedDate!.month > DateTime.january
+                    ? (widget.iconColor ?? Colors.blue)
+                    : Colors.grey,
                 size: 15,
               ),
               padding: EdgeInsets.zero,
@@ -422,7 +445,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
               onPressed: () => _handleMonthChange(true),
               icon: Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: widget.iconColor ?? Colors.blue,
+                color: _selectedDate!.year < (widget.maxYear ?? 2100) ||
+                        _selectedDate!.month < DateTime.december
+                    ? (widget.iconColor ?? Colors.blue)
+                    : Colors.grey,
                 size: 15,
               ),
               padding: EdgeInsets.zero,
@@ -766,16 +792,24 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
     int month = _selectedDate!.month;
 
     if (isForward) {
+      /// Increment month, but handle boundary of December to January
       if (month == DateTime.december) {
-        year++;
-        month = 1;
+        /// Only increase year if it's below the max year
+        if (year < (widget.maxYear ?? 2100)) {
+          year++;
+          month = 1;
+        }
       } else {
         month++;
       }
     } else {
+      /// Decrement month, but handle boundary of January to December
       if (month == DateTime.january) {
-        year--;
-        month = DateTime.december;
+        /// Only decrease year if it's above the min year
+        if (year > (widget.minYear ?? DateTime.now().year)) {
+          year--;
+          month = DateTime.december;
+        }
       } else {
         month--;
       }

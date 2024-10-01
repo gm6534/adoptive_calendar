@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Bugs Fixed
+* Min & Max years bug fixed
+
 ## 0.1.9
 
 * Add `disablePastDates` parameter to disable previous dates

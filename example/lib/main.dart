@@ -61,18 +61,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                         'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
                         color: Colors.blue,
                       ),
-                      // datePickerOnly: true,
-                      // action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
                     );
                   },
                 );
@@ -134,17 +122,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
                       datePickerOnly: true,
-                      // action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
                     );
                   },
                 );
@@ -165,16 +142,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                       initialDate: DateTime.now(),
                       datePickerOnly: true,
                       action: true,
-                      // backgroundEffects: AdoptiveBackground.christmas,
-                      // use24hFormat: true,
-                      // minuteInterval: 1,
-                      // backgroundColor: Colors.blue,
-                      // fontColor: Colors.white,
-                      // selectedColor: Colors.yellow,
-                      // headingColor: Colors.white,
-                      // iconColor: Colors.white,
-                      // barColor: Colors.purpleAccent,
-                      // barForegroundColor: Colors.tealAccent,
                     );
                   },
                 );
@@ -194,7 +161,6 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                     return AdoptiveCalendar(
                       initialDate: DateTime.now(),
                       backgroundEffects: AdoptiveBackground.summer,
-                      // use24hFormat: true,
                       fontColor: Colors.white,
                       selectedColor: Colors.yellowAccent,
                       headingColor: Colors.white,

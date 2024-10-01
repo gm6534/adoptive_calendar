@@ -17,6 +17,12 @@ class DatePicker extends StatelessWidget {
   /// Font Color is For Color Change.
   final Color? fontColor;
 
+  /// Mode
+  final CupertinoDatePickerMode mode;
+
+  /// Year Widget Order
+  final DatePickerDateOrder? dateOrder;
+
   /// Creates an instance of [DatePicker].
   ///
   /// The [onMonthYearChanged] callback is required and is called when the user
@@ -30,6 +36,8 @@ class DatePicker extends StatelessWidget {
     this.minYear,
     this.maxYear,
     this.fontColor,
+    this.mode = CupertinoDatePickerMode.monthYear,
+    this.dateOrder,
   });
 
   @override
@@ -44,7 +52,8 @@ class DatePicker extends StatelessWidget {
         ),
       ),
       child: CupertinoDatePicker(
-        mode: CupertinoDatePickerMode.monthYear,
+        mode: mode,
+        dateOrder: dateOrder,
         minimumYear: minYear ?? DateTime.now().year,
         maximumYear: maxYear ?? 2100,
         initialDateTime: initialDateTime,
