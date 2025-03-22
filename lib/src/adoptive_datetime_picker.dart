@@ -271,8 +271,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                       // 7 days a week, 6 weeks maximum
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: (!isPortrait &&
-                                widget.datePickerOnly &&
-                                widget.action)
+                            widget.datePickerOnly &&
+                            widget.action)
                             ? 1.2
                             : 1,
                         crossAxisCount: 7,
@@ -280,45 +280,34 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                       itemBuilder: (context, index) {
                         final day = index -
                             DateTime(_selectedDate!.year, _selectedDate!.month,
-                                    1)
+                                1)
                                 .weekday +
                             2;
                         final currentDate = DateTime(
                             _selectedDate!.year, _selectedDate!.month, day);
 
+                        final DateTime today = DateTime.now();
+
                         // Check if the day is selectable
                         bool isSelectable = day > 0 &&
-                            day <=
-                                DateTime(_selectedDate!.year,
-                                        _selectedDate!.month + 1, 0)
-                                    .day &&
+                            day <= DateTime(_selectedDate!.year, _selectedDate!.month + 1, 0).day &&
                             (!widget.disablePastDates ||
-                                currentDate.isAfter(widget.initialDate
-                                    .subtract(const Duration(days: 1))) ||
-                                currentDate
-                                    .isAtSameMomentAs(widget.initialDate));
+                                !currentDate.isBefore(DateTime(today.year, today.month, today.day)));
 
                         // Determine the color of the date
+                        final todayDateOnly = DateTime(today.year, today.month, today.day);
+                        final currentDateOnly = DateTime(currentDate.year, currentDate.month, currentDate.day);
+
                         Color? textColor = day <= 0 ||
-                                day >
-                                    DateTime(_selectedDate!.year,
-                                            _selectedDate!.month + 1, 0)
-                                        .day
+                            day > DateTime(_selectedDate!.year, _selectedDate!.month + 1, 0).day
                             ? Colors.transparent
                             : _isSelectedDay(day)
-                                ? (widget.selectedColor ?? Colors.blue)
-                                : (widget.disablePastDates &&
-                                        (currentDate.isBefore(widget.initialDate
-                                                .toLocal()
-                                                .subtract(
-                                                    const Duration(days: 1))) ||
-                                            currentDate.isAtSameMomentAs(
-                                                widget.initialDate.toLocal())))
-                                    ? (currentDate.isAtSameMomentAs(
-                                            widget.initialDate.toLocal())
-                                        ? widget.fontColor
-                                        : Colors.grey)
-                                    : widget.fontColor;
+                            ? (widget.selectedColor ?? Colors.blue)
+                            : (widget.disablePastDates &&
+                            currentDateOnly.isBefore(todayDateOnly))
+                            ? Colors.grey
+                            : widget.fontColor;
+
 
                         return GestureDetector(
                           onTap: () {
@@ -343,23 +332,23 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                             margin: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               color: day <= 0 ||
-                                      day >
-                                          DateTime(_selectedDate!.year,
-                                                  _selectedDate!.month + 1, 0)
-                                              .day
+                                  day >
+                                      DateTime(_selectedDate!.year,
+                                          _selectedDate!.month + 1, 0)
+                                          .day
                                   ? Colors.transparent
                                   : _isSelectedDay(day)
-                                      ? (widget.selectedColor ?? Colors.blue)
-                                          .withOpacity(0.1)
-                                      : Colors.transparent,
+                                  ? (widget.selectedColor ?? Colors.blue)
+                                  .withOpacity(0.1)
+                                  : Colors.transparent,
                               shape: BoxShape.circle,
                             ),
                             child: Text(
                               day <= 0 ||
-                                      day >
-                                          DateTime(_selectedDate!.year,
-                                                  _selectedDate!.month + 1, 0)
-                                              .day
+                                  day >
+                                      DateTime(_selectedDate!.year,
+                                          _selectedDate!.month + 1, 0)
+                                          .day
                                   ? ''
                                   : '$day',
                               style: TextStyle(
