@@ -8,6 +8,12 @@ class DatePicker extends StatelessWidget {
   /// The initial date to be displayed in the date picker.
   final DateTime initialDateTime;
 
+  /// The minimum date that can be selected in the date picker.
+  final DateTime? minimumDate;
+
+  /// The maximum date that can be selected in the date picker.
+  final DateTime? maximumDate;
+
   /// The minimum year that can be selected in the date picker. Defaults to the current year.
   final int? minYear;
 
@@ -33,6 +39,8 @@ class DatePicker extends StatelessWidget {
     super.key,
     required this.onMonthYearChanged,
     required this.initialDateTime,
+    this.minimumDate,
+    this.maximumDate,
     this.minYear,
     this.maxYear,
     this.fontColor,
@@ -54,6 +62,8 @@ class DatePicker extends StatelessWidget {
       child: CupertinoDatePicker(
         mode: mode,
         dateOrder: dateOrder,
+        minimumDate: minimumDate,
+        maximumDate: maximumDate,
         minimumYear: minYear ?? DateTime.now().year,
         maximumYear: maxYear ?? 2100,
         initialDateTime: initialDateTime,

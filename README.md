@@ -46,29 +46,32 @@ dependencies:
 
 ## Features
 
-| No. | Properties         | Description                                                                                                                                    |
-|:----|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
-| 1   | initialDate        | Set the initial date for the calendar                                                                                                          |
-| 2   | backgroundColor    | Customize the background color of the calendar                                                                                                 |
-| 3   | fontColor          | Define the font color for the calendar                                                                                                         |
-| 4   | selectedColor      | Set the color for the selected date                                                                                                            |
-| 5   | headingColor       | Customize the color of the calendar headings                                                                                                   |
-| 6   | barColor           | Set the color of the calendar bar                                                                                                              |
-| 7   | barForegroundColor | Define the foreground color of the calendar bar                                                                                                |
-| 8   | iconColor          | Customize the color of the calendar icons                                                                                                      |
-| 9   | minYear            | Set the minimum allowed year in the calendar                                                                                                   |
-| 10  | maxYear            | Set the maximum allowed year in the calendar                                                                                                   |
-| 11  | use24hFormat       | Toggle between 12-hour and 24-hour time format                                                                                                 |
-| 12  | minuteInterval     | Minutes Interval for minutes to jump on minutes with specific Gap                                                                              |
-| 13  | backgroundEffects  | You Can Set Seasonal Background using `backgroundEffects` Feature                                                                              |
-| 14  | brandIcon          | You Can add Brand Logo using Asset Or Network Image in Your Calendar                                                                           |
-| 15  | action             | You Can use Action Button in Your Calendar                                                                                                     |
-| 16  | actionButtonTitle  | The title for the action button                                                                                                                |
-| 17  | datePickerOnly     | Now You Can use just Date Picker Calendar option.                                                                                              |
-| 18  | onSelection        | With `onSelection` you can select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI. |
-| 19  | contentPadding     | `contentPadding` will use for custom padding                                                                                                   |
-| 20  | disablePastDates   | `disablePastDates` will disable previous dates from given `initialDate`                                                                        |
-| 15  | showDivider        | Hide or show the divider that is between the calendar and the date picker                                                                      |
+| No. | Properties                | Description                                                                                                                                    |
+|:----|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| 1   | currentDate               | Set the current date for the calendar                                                                                                          |
+| 2   | initialDate               | Set the initial date for the calendar. The initial selected date when the calendar is displayed.                                               |
+| 3   | backgroundColor           | Customize the background color of the calendar                                                                                                 |
+| 4   | fontColor                 | Define the font color for the calendar                                                                                                         |
+| 5   | selectedColor             | Set the color for the selected date                                                                                                            |
+| 6   | headingColor              | Customize the color of the calendar headings                                                                                                   |
+| 7   | barColor                  | Set the color of the calendar bar                                                                                                              |
+| 8   | barForegroundColor        | Define the foreground color of the calendar bar                                                                                                |
+| 9   | iconColor                 | Customize the color of the calendar icons                                                                                                      |
+| 10  | minYear                   | Set the minimum allowed year in the calendar                                                                                                   |
+| 11  | maxYear                   | Set the maximum allowed year in the calendar                                                                                                   |
+| 12  | use24hFormat              | Toggle between 12-hour and 24-hour time format                                                                                                 |
+| 13  | minuteInterval            | Minutes Interval for minutes to jump on minutes with specific Gap                                                                              |
+| 14  | backgroundEffects         | You Can Set Seasonal Background using `backgroundEffects` Feature                                                                              |
+| 15  | brandIcon                 | You Can add Brand Logo using Asset Or Network Image in Your Calendar                                                                           |
+| 16  | action                    | You Can use Action Button in Your Calendar                                                                                                     |
+| 17  | actionButtonTitle         | The title for the action button                                                                                                                |
+| 18  | datePickerOnly            | Now You Can use just Date Picker Calendar option.                                                                                              |
+| 19  | onSelection               | With `onSelection` you can select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI. |
+| 20  | contentPadding            | `contentPadding` will use for custom padding                                                                                                   |
+| 21  | disablePastDates          | `disablePastDates` will disable previous dates from given `currentDate`                                                                        |
+| 22  | disableFutureDates        | `disableFutureDates` will disable futures dates from given `currentDate`                                                                       |
+| 23  | showTimePickerDivider     | Hide or show the divider that is between the calendar and the time picker                                                                      |
+| 24  | resetOrientationOnDismiss | Reset the orientation of the app after dismissing the calendar                                                                                 |
 
 ## Usage
 
@@ -76,6 +79,7 @@ To seamlessly integrate the `Adoptive Calendar` into your Flutter application, b
 
 ```dart
 AdoptiveCalendar(
+  currentDate: DateTime.now(),
   initialDate: DateTime.now(),
 );
 ```

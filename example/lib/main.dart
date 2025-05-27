@@ -56,6 +56,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       brandIcon: Image.asset(
                         'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
@@ -78,6 +79,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       brandIcon: Image.asset(
                         'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png',
@@ -101,6 +103,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       use24hFormat: true,
                     );
@@ -120,6 +123,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       datePickerOnly: true,
                     );
@@ -139,6 +143,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       datePickerOnly: true,
                       action: true,
@@ -159,6 +164,7 @@ class _ExampleAdoptiveCalendarState extends State<ExampleAdoptiveCalendar> {
                   context: context,
                   builder: (BuildContext context) {
                     return AdoptiveCalendar(
+                      currentDate: DateTime.now(),
                       initialDate: DateTime.now(),
                       backgroundEffects: AdoptiveBackground.summer,
                       fontColor: Colors.white,

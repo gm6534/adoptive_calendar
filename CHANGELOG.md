@@ -1,9 +1,14 @@
 ## 0.2.1
 
-* Bug Fixed: Orientation being reset to portrait in Android when the dialog is closed
-* Add ability to change action button title
-* Add ability to show or hide the divider between the calendar and time picker
-* Replace GestureDetector with TextButton for the action button
+* Breaking Change: Added new parameter `currentDate` to set the current date of the calendar. This will be used for the `disableFutureDates` and `disablePastDates`.
+The dates will be disabled based on the `currentDate`, rather than the `initialDate`. Initial date is the currently selected date in the calendar, 
+while the current date is the current date of the device.
+* Bug Fixed: Orientation being reset to portrait in Android when the dialog is closed. Added 'resetOrientationOnDismiss' parameter to control this behavior.
+* Bug Fixed: When setting the time at 12:00 AM or 12:00 PM and switching between AM/PM, the date would automatically change to the next day.
+* Add ability to change action button title with `actionButtonTitle` parameter.
+* Add ability to show or hide the divider between the calendar and time picker with `showTimePickerDivider` parameter.
+* Add ability to disable future dates with `disableFutureDates` parameter
+* Replace GestureDetector with TextButton for the action button to ensure accessibility and focusability.
 
 ## 0.2.0
 
