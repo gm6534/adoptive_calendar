@@ -1,3 +1,10 @@
+## 0.2.1
+
+* Bug Fixed: Orientation being reset to portrait in Android when the dialog is closed
+* Add ability to change action button title
+* Add ability to show or hide the divider between the calendar and time picker
+* Replace GestureDetector with TextButton for the action button
+
 ## 0.2.0
 
 * Bugs Fixed

@@ -46,6 +46,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Whether to use action for Ok.
   final bool action;
 
+  /// Title of the action button.
+  final String actionButtonTitle;
+
   /// Whether to use datePickerOnly for just date picker.
   final bool datePickerOnly;
 
@@ -70,6 +73,12 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Month Year Order
   final DatePickerDateOrder? monthYearOrder;
 
+  /// Whether to show a divider between the calendar and the time picker.
+  final bool showTimePickerDivider;
+
+  /// Whether to reset the orientation on dismiss of the calendar.
+  final bool resetOrientationOnDismiss;
+
   /// Creates an instance of [AdoptiveCalendar].
   ///
   /// The [initialDate] is required and represents the date to be initially
@@ -93,12 +102,15 @@ class AdoptiveCalendar extends StatefulWidget {
     this.brandIcon,
     this.backgroundEffects = AdoptiveBackground.none,
     this.action = false,
+    this.actionButtonTitle = "Save",
     this.datePickerOnly = false,
     this.onSelection,
     this.contentPadding,
     this.disablePastDates = false,
     this.monthYearMode = CupertinoDatePickerMode.monthYear,
     this.monthYearOrder,
+    this.showTimePickerDivider = true,
+    this.resetOrientationOnDismiss = true,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
@@ -377,19 +389,21 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 ),
               );
 
-    Widget actionButton = GestureDetector(
-        onTap: () {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.landscapeLeft,
-          ]);
+    Widget actionButton = TextButton(
+        onPressed: () {
+          if (widget.resetOrientationOnDismiss) {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+              DeviceOrientation.portraitDown,
+              DeviceOrientation.landscapeRight,
+              DeviceOrientation.landscapeLeft,
+            ]);
+          }
           returnDate ??= _selectedDate;
           Navigator.pop(context, returnDate);
         },
         child: Text(
-          "Save",
+          widget.actionButtonTitle,
           style: TextStyle(
               fontWeight: FontWeight.w600,
               color: widget.iconColor ?? Colors.blue,
@@ -654,9 +668,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 ...topArrowBody,
                 calendarBody,
                 // Lower Section
-                const Divider(
-                  thickness: 0.5,
-                ),
+                if (widget.showTimePickerDivider)
+                  const Divider(
+                    thickness: 0.5,
+                  ),
                 Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -709,9 +724,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 calendarBody,
                 // Lower Section
                 if (widget.action) ...[
-                  const Divider(
-                    thickness: 0.5,
-                  ),
+                  if (widget.showTimePickerDivider)
+                    const Divider(
+                      thickness: 0.5,
+                    ),
                   actionButton
                 ]
                 // Row(
@@ -731,9 +747,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                   ...topArrowBody,
                   calendarBody,
                   if (widget.action) ...[
-                    const Divider(
-                      thickness: 0.5,
-                    ),
+                    if (widget.showTimePickerDivider)
+                      const Divider(
+                        thickness: 0.5,
+                      ),
                     actionButton
                   ]
                 ],
@@ -747,12 +764,14 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         if (didPop) {
           return;
         }
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-          DeviceOrientation.landscapeRight,
-          DeviceOrientation.landscapeLeft,
-        ]);
+        if (widget.resetOrientationOnDismiss) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
+          ]);
+        }
 
         /// Close the current screen and return the [returnDate] to the previous screen.
         Navigator.pop(context, widget.action ? null : returnDate);

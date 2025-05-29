@@ -63,11 +63,12 @@ dependencies:
 | 13  | backgroundEffects  | You Can Set Seasonal Background using `backgroundEffects` Feature                                                                              |
 | 14  | brandIcon          | You Can add Brand Logo using Asset Or Network Image in Your Calendar                                                                           |
 | 15  | action             | You Can use Action Button in Your Calendar                                                                                                     |
-| 16  | datePickerOnly     | Now You Can use just Date Picker Calendar option.                                                                                              |
-| 17  | onSelection        | With `onSelection` you can select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI. |
-| 17  | contentPadding     | `contentPadding` will use for custom padding                                                                                                   |
-| 17  | disablePastDates   | `disablePastDates` will disable previous dates from given `initialDate`                                                                        |
-
+| 16  | actionButtonTitle  | The title for the action button                                                                                                                |
+| 17  | datePickerOnly     | Now You Can use just Date Picker Calendar option.                                                                                              |
+| 18  | onSelection        | With `onSelection` you can select date from Adoptive calendar without showing in dialog. Now you can use AdoptiveCalendar directly in your UI. |
+| 19  | contentPadding     | `contentPadding` will use for custom padding                                                                                                   |
+| 20  | disablePastDates   | `disablePastDates` will disable previous dates from given `initialDate`                                                                        |
+| 15  | showDivider        | Hide or show the divider that is between the calendar and the date picker                                                                      |
 
 ## Usage
 
@@ -75,8 +76,8 @@ To seamlessly integrate the `Adoptive Calendar` into your Flutter application, b
 
 ```dart
 AdoptiveCalendar(
-        initialDate: DateTime.now(),
-          );
+  initialDate: DateTime.now(),
+);
 ```
 
 ## Contributor
