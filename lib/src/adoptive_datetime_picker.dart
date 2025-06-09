@@ -7,7 +7,10 @@ import 'constants.dart';
 import 'month_year_picker.dart';
 
 class AdoptiveCalendar extends StatefulWidget {
-  /// The initial date for the calendar.
+  /// The current date for the calendar.
+  final DateTime currentDate;
+
+  /// The initial date for the calendar. The initial selected date when the calendar is displayed.
   final DateTime initialDate;
 
   /// The background color of the calendar.
@@ -46,6 +49,9 @@ class AdoptiveCalendar extends StatefulWidget {
   /// Whether to use action for Ok.
   final bool action;
 
+  /// Title of the action button.
+  final String actionButtonTitle;
+
   /// Whether to use datePickerOnly for just date picker.
   final bool datePickerOnly;
 
@@ -64,11 +70,20 @@ class AdoptiveCalendar extends StatefulWidget {
   /// disable the dates before today
   final bool disablePastDates;
 
+  /// disable the dates after today
+  final bool disableFutureDates;
+
   /// Month Year Mode
   final CupertinoDatePickerMode monthYearMode;
 
   /// Month Year Order
   final DatePickerDateOrder? monthYearOrder;
+
+  /// Whether to show a divider between the calendar and the time picker.
+  final bool showTimePickerDivider;
+
+  /// Whether to reset the orientation on dismiss of the calendar.
+  final bool resetOrientationOnDismiss;
 
   /// Creates an instance of [AdoptiveCalendar].
   ///
@@ -78,6 +93,7 @@ class AdoptiveCalendar extends StatefulWidget {
 
   const AdoptiveCalendar({
     super.key,
+    required this.currentDate,
     required this.initialDate,
     this.backgroundColor,
     this.minYear,
@@ -93,18 +109,24 @@ class AdoptiveCalendar extends StatefulWidget {
     this.brandIcon,
     this.backgroundEffects = AdoptiveBackground.none,
     this.action = false,
+    this.actionButtonTitle = "Save",
     this.datePickerOnly = false,
     this.onSelection,
     this.contentPadding,
     this.disablePastDates = false,
+    this.disableFutureDates = false,
     this.monthYearMode = CupertinoDatePickerMode.monthYear,
     this.monthYearOrder,
+    this.showTimePickerDivider = true,
+    this.resetOrientationOnDismiss = true,
   })  : assert(!(datePickerOnly && brandIcon != null),
             'You cannot use brandIcon when datePickerOnly is true. If you want to use brandIcon then remove datePickerOnly'),
         assert(!(datePickerOnly && minuteInterval > 1),
             'You cannot use minuteInterval when datePickerOnly is true. If you want to use minuteInterval then remove datePickerOnly'),
         assert(!(datePickerOnly && use24hFormat),
             'You cannot use use24hFormat when datePickerOnly is true. If you want to use use24hFormat then remove datePickerOnly'),
+        assert(!(disablePastDates && disableFutureDates),
+            'You cannot use disablePastDates when disableFutureDates is true and vice versa. If you want to use disablePastDates then remove disableFutureDates or vice versa.'),
         assert(
           monthYearMode == CupertinoDatePickerMode.date ||
               monthYearMode == CupertinoDatePickerMode.monthYear,
@@ -123,6 +145,8 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
   bool? isAM;
   List<String> monthNames = Constants.repeatMonthNames;
 
+  Key _timePickerKey = UniqueKey();
+
   @override
   void initState() {
     /// Initialize the [_selectedDate] with the [initialDate] provided in the widget.
@@ -139,27 +163,29 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
 
     super.initState();
 
-    _resetIfBeforeCurrentDate();
+    _resetIfOutOfBounds();
   }
 
-  void _resetIfBeforeCurrentDate() {
-    final now = widget.initialDate;
-    if (widget.disablePastDates &&
-        _selectedDate != null &&
-        _selectedDate!.isBefore(now)) {
-      _selectedDate = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        _selectedDate!.hour,
-        _selectedDate!.minute,
-      );
-      returnDate = _selectedDate;
-      if (widget.onSelection != null) {
-        widget.onSelection!(returnDate);
+  void _resetIfOutOfBounds() {
+    final now = widget.currentDate;
+
+    if (_selectedDate != null) {
+      if (widget.disablePastDates && _selectedDate!.isBefore(now) ||
+          widget.disableFutureDates && _selectedDate!.isAfter(now)) {
+        _selectedDate = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          now.hour,
+          now.minute,
+        );
+        isAM = _selectedDate!.hour < 12;
       }
-      setState(() {});
     }
+
+    returnDate = _selectedDate;
+    widget.onSelection?.call(returnDate);
+    setState(() {});
   }
 
   @override
@@ -190,6 +216,9 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
             child: DatePicker(
               mode: widget.monthYearMode,
               dateOrder: widget.monthYearOrder,
+              minimumDate: widget.disablePastDates ? widget.currentDate : null,
+              maximumDate:
+                  widget.disableFutureDates ? widget.currentDate : null,
               minYear: widget.minYear,
               maxYear: widget.maxYear,
               initialDateTime: _selectedDate!,
@@ -206,7 +235,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 if (widget.onSelection != null) {
                   widget.onSelection!(returnDate);
                 }
-                _resetIfBeforeCurrentDate();
+                _resetIfOutOfBounds();
 
                 setState(() {});
               },
@@ -216,7 +245,12 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
             ? SizedBox(
                 height: screenHeight * (isPortrait ? 0.29 : 0.55),
                 child: TimePicker(
+                  key: _timePickerKey,
                   initialDateTime: _selectedDate!,
+                  minimumDate:
+                      widget.disablePastDates ? widget.currentDate : null,
+                  maximumDate:
+                      widget.disableFutureDates ? widget.currentDate : null,
                   minuteInterval: widget.minuteInterval,
                   use24hForm: widget.use24hFormat,
                   fontColor: widget.fontColor,
@@ -232,7 +266,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                     if (widget.onSelection != null) {
                       widget.onSelection!(returnDate);
                     }
-                    _resetIfBeforeCurrentDate();
+                    _resetIfOutOfBounds();
 
                     setState(() {});
                   },
@@ -283,7 +317,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                     1)
                                 .weekday +
                             2;
-                        final currentDate = DateTime(
+                        final currentSelectedDate = DateTime(
                             _selectedDate!.year, _selectedDate!.month, day);
 
                         // Check if the day is selectable
@@ -292,33 +326,44 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                 DateTime(_selectedDate!.year,
                                         _selectedDate!.month + 1, 0)
                                     .day &&
-                            (!widget.disablePastDates ||
-                                currentDate.isAfter(widget.initialDate
-                                    .subtract(const Duration(days: 1))) ||
-                                currentDate
-                                    .isAtSameMomentAs(widget.initialDate));
+                            (widget.disablePastDates
+                                ? currentSelectedDate.isAfter(widget.currentDate
+                                        .subtract(const Duration(days: 1))) ||
+                                    currentSelectedDate
+                                        .isAtSameMomentAs(widget.currentDate)
+                                : true) &&
+                            (widget.disableFutureDates
+                                ? currentSelectedDate
+                                        .isBefore(widget.currentDate) ||
+                                    currentSelectedDate
+                                        .isAtSameMomentAs(widget.currentDate)
+                                : true);
 
                         // Determine the color of the date
                         Color? textColor = day <= 0 ||
                                 day >
-                                    DateTime(_selectedDate!.year,
-                                            _selectedDate!.month + 1, 0)
+                                    DateTime(_selectedDate!.year, _selectedDate!.month + 1, 0)
                                         .day
                             ? Colors.transparent
                             : _isSelectedDay(day)
                                 ? (widget.selectedColor ?? Colors.blue)
                                 : (widget.disablePastDates &&
-                                        (currentDate.isBefore(widget.initialDate
-                                                .toLocal()
-                                                .subtract(
+                                        (currentSelectedDate.isBefore(
+                                                widget.currentDate.subtract(
                                                     const Duration(days: 1))) ||
-                                            currentDate.isAtSameMomentAs(
-                                                widget.initialDate.toLocal())))
-                                    ? (currentDate.isAtSameMomentAs(
-                                            widget.initialDate.toLocal())
+                                            currentSelectedDate.isAtSameMomentAs(
+                                                widget.currentDate)))
+                                    ? (currentSelectedDate.isAtSameMomentAs(
+                                            widget.currentDate)
                                         ? widget.fontColor
                                         : Colors.grey)
-                                    : widget.fontColor;
+                                    : (widget.disableFutureDates &&
+                                            (currentSelectedDate.isAfter(
+                                                    widget.currentDate) ||
+                                                currentSelectedDate
+                                                    .isAtSameMomentAs(widget.currentDate)))
+                                        ? Colors.grey
+                                        : widget.fontColor;
 
                         return GestureDetector(
                           onTap: () {
@@ -334,7 +379,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                 if (widget.onSelection != null) {
                                   widget.onSelection!(returnDate);
                                 }
-                                _resetIfBeforeCurrentDate();
+                                _resetIfOutOfBounds();
                               });
                             }
                           },
@@ -377,19 +422,22 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 ),
               );
 
-    Widget actionButton = GestureDetector(
-        onTap: () {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.landscapeLeft,
-          ]);
+    Widget actionButton = TextButton(
+        onPressed: () {
+          if (widget.resetOrientationOnDismiss) {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+              DeviceOrientation.portraitDown,
+              DeviceOrientation.landscapeRight,
+              DeviceOrientation.landscapeLeft,
+            ]);
+          }
           returnDate ??= _selectedDate;
+          _resetIfOutOfBounds();
           Navigator.pop(context, returnDate);
         },
         child: Text(
-          "Save",
+          widget.actionButtonTitle,
           style: TextStyle(
               fontWeight: FontWeight.w600,
               color: widget.iconColor ?? Colors.blue,
@@ -481,15 +529,18 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                               _selectedDate!.month,
                               _selectedDate!.day,
                               isAM!
-                                  ? _selectedDate!.hour % 12 == 0
-                                      ? 12
-                                      : _selectedDate!.hour % 12
-                                  : _selectedDate!.hour + 12,
+                                  ? _selectedDate!.hour >= 12
+                                      ? _selectedDate!.hour - 12
+                                      : _selectedDate!.hour
+                                  : _selectedDate!.hour < 12
+                                      ? _selectedDate!.hour + 12
+                                      : _selectedDate!.hour,
                               _selectedDate!.minute);
                           returnDate = _selectedDate;
                           if (widget.onSelection != null) {
                             widget.onSelection!(returnDate);
                           }
+                          _resetIfOutOfBounds();
                           setState(() {});
                         },
                   child: Container(
@@ -530,15 +581,18 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                               _selectedDate!.month,
                               _selectedDate!.day,
                               isAM!
-                                  ? _selectedDate!.hour % 12 == 0
-                                      ? 12
-                                      : _selectedDate!.hour % 12
-                                  : _selectedDate!.hour + 12,
+                                  ? _selectedDate!.hour >= 12
+                                      ? _selectedDate!.hour - 12
+                                      : _selectedDate!.hour
+                                  : _selectedDate!.hour < 12
+                                      ? _selectedDate!.hour + 12
+                                      : _selectedDate!.hour,
                               _selectedDate!.minute);
                           returnDate = _selectedDate;
                           if (widget.onSelection != null) {
                             widget.onSelection!(returnDate);
                           }
+                          _resetIfOutOfBounds();
                           setState(() {});
                         },
                   child: Container(
@@ -654,9 +708,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 ...topArrowBody,
                 calendarBody,
                 // Lower Section
-                const Divider(
-                  thickness: 0.5,
-                ),
+                if (widget.showTimePickerDivider)
+                  const Divider(
+                    thickness: 0.5,
+                  ),
                 Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -709,9 +764,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                 calendarBody,
                 // Lower Section
                 if (widget.action) ...[
-                  const Divider(
-                    thickness: 0.5,
-                  ),
+                  if (widget.showTimePickerDivider)
+                    const Divider(
+                      thickness: 0.5,
+                    ),
                   actionButton
                 ]
                 // Row(
@@ -731,9 +787,10 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                   ...topArrowBody,
                   calendarBody,
                   if (widget.action) ...[
-                    const Divider(
-                      thickness: 0.5,
-                    ),
+                    if (widget.showTimePickerDivider)
+                      const Divider(
+                        thickness: 0.5,
+                      ),
                     actionButton
                   ]
                 ],
@@ -747,12 +804,14 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
         if (didPop) {
           return;
         }
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-          DeviceOrientation.landscapeRight,
-          DeviceOrientation.landscapeLeft,
-        ]);
+        if (widget.resetOrientationOnDismiss) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
+          ]);
+        }
 
         /// Close the current screen and return the [returnDate] to the previous screen.
         Navigator.pop(context, widget.action ? null : returnDate);
@@ -830,8 +889,14 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
       if (widget.onSelection != null) {
         widget.onSelection!(returnDate);
       }
-      _resetIfBeforeCurrentDate();
+      _resetIfOutOfBounds();
     });
+
+    // Reset the time picker key to force rebuild
+    // When we are in the time picker view and future or past date is disabled,
+    // this is necessary to update the time picker when we change the month using
+    // the arrows.
+    _timePickerKey = UniqueKey();
   }
 
   bool _isSelectedDay(int day) {

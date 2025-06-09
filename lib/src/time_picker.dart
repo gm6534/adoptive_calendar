@@ -8,6 +8,12 @@ class TimePicker extends StatelessWidget {
   /// The initial date and time to be displayed in the time picker.
   final DateTime initialDateTime;
 
+  /// The maximum date that can be selected in the time picker.
+  final DateTime? maximumDate;
+
+  /// The minimum date that can be selected in the time picker.
+  final DateTime? minimumDate;
+
   /// The interval (in minutes) between selectable minutes.
   final int minuteInterval;
 
@@ -27,6 +33,8 @@ class TimePicker extends StatelessWidget {
     super.key,
     required this.onDateTimeChanged,
     required this.initialDateTime,
+    this.maximumDate,
+    this.minimumDate,
     this.minuteInterval = 1,
     this.use24hForm = false,
     this.fontColor,
@@ -46,6 +54,8 @@ class TimePicker extends StatelessWidget {
       child: CupertinoDatePicker(
         mode: CupertinoDatePickerMode.time,
         initialDateTime: initialDateTime,
+        maximumDate: maximumDate,
+        minimumDate: minimumDate,
         minuteInterval: minuteInterval,
         use24hFormat: use24hForm,
         onDateTimeChanged: onDateTimeChanged,
