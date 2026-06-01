@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Improvement Patch
+
 ## 1.2.0
 
 * Added Swift Package Manager Support

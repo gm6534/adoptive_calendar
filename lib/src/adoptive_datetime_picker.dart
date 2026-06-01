@@ -350,7 +350,7 @@ class _AdoptiveCalendarState extends State<AdoptiveCalendar> {
                                   ? Colors.transparent
                                   : _isSelectedDay(day)
                                       ? (widget.selectedColor ?? Colors.blue)
-                                          .withOpacity(0.1)
+                                          .withValues(alpha: 0.1)
                                       : Colors.transparent,
                               shape: BoxShape.circle,
                             ),
